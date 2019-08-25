@@ -41,7 +41,7 @@ btn.onclick = function(){
   - 注册给谁？有光标的标签input textarea;
   - 事件类型：
     - 有光标时：获得焦点 focus；
-    - 无光标时：失去焦点 blur;
+    - 无光标时：失去焦点 blur；
 
 ```js
 input.onfocus = function(){

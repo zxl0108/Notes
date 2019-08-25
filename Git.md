@@ -1,6 +1,6 @@
 
 
-![Git](images/logo@2x.png)
+![Git](images/logo.png)
 
 ## 关于版本控制
 
@@ -125,8 +125,6 @@ $ git add 文件名
 # 提交暂存区到仓库区形成历史记录
 $ git commit -m "提交日志"
 ```
-
-
 
 ## Git 基础
 

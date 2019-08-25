@@ -121,9 +121,14 @@ element.on(events,[selector],function(event){})
 【event==》 事件对象】；
 ```
 
-#### 阻止行为或冒泡
+#### 阻止默认行为
 
-- **阻止默认行为：event.preventDefault()   或者 return  false；**
+- **阻止默认行为：event.preventDefault() **
+- **在标签地址中添加  'Javascript:'；例如：<a href="Javascript:;">**
+- **直接输入return  false（输入return后，后面的程序不在执行）**
+
+#### 阻止冒泡
+
 - **阻止冒泡： event.stopPropagation() **
 
 ## jQuery获取或设置元素
