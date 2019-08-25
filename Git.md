@@ -1,6 +1,6 @@
-# Git 入门
 
-![Git](E:/奥巴马/Documents/logo@2x.png)
+
+![Git](images/logo@2x.png)
 
 ## 关于版本控制
 
