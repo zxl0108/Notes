@@ -878,13 +878,16 @@ btn.onclick = function(){
 ## location（属性）
 
 - location：负责管理浏览器地址相关的行为和信息的对象；
-- 属性：location.href属性；该属性就是浏览器的地址栏里面的内容；
-  - 获取当前浏览器的地址；重新设置页面就会发生跳转；
 
-```js
-// 如果想要使用js进行跳转，只需要 location.href = 新的地址;
-location.href = 'http://www.baidu.com';
+- location.href：该属性就是浏览器的地址栏里面的内容；
+  - 获取当前浏览器的地址；重新设置页面就会发生跳转；
+  
 ```
+  location.search：浏览器的地址栏从问号 (?) 开始的 URL（查询部分）；
+  location.href = 'http://www.baidu.com';
+  ```
+
+- location.search：浏览器的地址栏从问号 (?) 开始的 URL（查询部分）；
 
 ## localStorage
 
