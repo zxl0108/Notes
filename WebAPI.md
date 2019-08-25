@@ -877,6 +877,17 @@ btn.onclick = function(){
 
 ## location（属性）
 
+|   属性   |                                   |
+| :------: | :-------------------------------: |
+|   hash   |    从井号 (#) 开始的 URL（锚）    |
+|   host   |     主机名和当前 URL 的端口号     |
+| hostname |         当前 URL 的主机名         |
+|   href   |            完整的 URL             |
+| pathname |        当前 URL 的路径部分        |
+|   port   |         当前 URL 的端口号         |
+| protocol |          当前 URL 的协议          |
+|  search  | 从问号 (?) 开始的 URL（查询部分） |
+
 - location：负责管理浏览器地址相关的行为和信息的对象；
 
 - location.href：该属性就是浏览器的地址栏里面的内容；
@@ -885,7 +896,7 @@ btn.onclick = function(){
 ```
   location.search：浏览器的地址栏从问号 (?) 开始的 URL（查询部分）；
   location.href = 'http://www.baidu.com';
-  ```
+```
 
 - location.search：浏览器的地址栏从问号 (?) 开始的 URL（查询部分）；
 
