@@ -7,7 +7,7 @@
 # 2.数据类型
 
 1. 字符串类型、数字类型、布尔类型、null(值)、undefined类型（值）；
-2. 查看数据类型：typeof  数据；typeof(数据)，返回数据类型；![v2-c69b4328206592f3c3a89a2_hd](E:/奥巴马/Documents/v2-c69bc8d698afe4328206592f3c3a89a2_hd.jpg)
+2. 查看数据类型：typeof  数据；typeof(数据)，返回数据类型；![v2-c69b4328206592f3c3a89a2_hd](images/v2-c69bc8d698afe4328206592f3c3a89a2_hd.jpg)
 
 # 3.数据转化
 
@@ -686,7 +686,7 @@ var lis = document.querySelectorAll('li');
 
 - **this：当前调用者；**
 
-<img src="E:/奥巴马/Documents/this.bmp">
+<img src="images/this.bmp">
 
 #### 改变函数内部this指向
 
@@ -1329,7 +1329,7 @@ function Star (uname, age) {
 
 ### 构造函数、实例、原型对象三者之间的关系
 
-![](E:/奥巴马/Documents/构造函数，原型对象，对象实例关系.jpg)
+![](images/构造函数，原型对象，对象实例关系.jpg)
 
 - prototype：原型对象，每一个构造函数都有这个属性；
 - __ proto __：对象原型，每一个实例对象都有这个属性，这个属性的作用就是指向prototype；
@@ -1629,63 +1629,6 @@ console.log(fb(3));
 
 ```
 案例：利用递归遍历数据
-
-		var data = [
-			{
-				id : 1,
-				name : '家电'
-			},
-			{
-				id : 2,
-				name : '服饰'
-			}
-		];
-
-
-var data = [{
-   id: 1,
-   name: '家电',
-   goods: [{
-     id: 11,
-     gname: '冰箱',
-     goods: [{
-       id: 111,
-       gname: '海尔'
-     }, {
-       id: 112,
-       gname: '美的'
-     },
-
-            ]
-
-   }, {
-     id: 12,
-     gname: '洗衣机'
-   }]
- }, {
-   id: 2,
-   name: '服饰'
-}];
-//1.利用 forEach 去遍历里面的每一个对象
- function getID(json, id) {
-   var o = {};
-   json.forEach(function(item) {
-     // console.log(item); // 2个数组元素
-     if (item.id == id) {
-       // console.log(item);
-       o = item;
-  
-       // 2. 我们想要得里层的数据 11 12 可以利用递归函数
-       // 里面应该有goods这个数组并且数组的长度不为 0 
-     } else if (item.goods && item.goods.length > 0) {
-       o = getID(item.goods, id);
-     }
-   });
-   return o;
-```
-
-```
-案例：利用递归遍历数据
 var data = [
 			{
 				id : 1,
@@ -1975,7 +1918,7 @@ var input = document.querySelector('input');
 
 ### 预定义类
 
-![img3](E:/奥巴马/Documents/img3.png)
+![img3](images/img3.png)
 
 ```
 预定义类指的是某些常见模式的简写方式.
