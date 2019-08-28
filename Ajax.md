@@ -292,7 +292,7 @@ xhr.responseType = 'json'; // 可选的值 '' 、 text 、 json 、 document
 xhr.send();
 ```
 
-
+### Form表单对象
 
 #### FormData对象
 
@@ -417,7 +417,22 @@ xhr.send();
     </script>
 ```
 
+#### Serialize对象（jQuery提供）
 
+```
+语法：$('form').serialize();
+```
+
+- 根据表单各项的name属性获取的，所以表单各项应该也有name属性。
+- 获取的结果是一个字符串，类似于username=xxx&password=yyy。
+
+#### FormData与Serialize二者的区别
+
+- **Serialize获取的数据是一个字符串，适用于编码格式为'Content-Type', 'application/x-www-form-urlencoded'的表单。**
+
+- **FormData获取的数据是一个对象，适用于编码格式为mutiple/form-data的表单数据。**
+- **Serialize只能够收集文本类型的数据，不能用于上传文件。**
+- **FormData既能够获取到文本类型的数据，也能够获取到文本类型的数据，适用于上传数据。**
 
 XML(了解)
 
