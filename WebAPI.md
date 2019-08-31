@@ -552,7 +552,9 @@ var res=document.getElementById('bx');
 console.log(res.width);//输出underfind，找不到；
 ```
 
-### 6.confirm（显示模态对话框方法）
+## Web Api补充方法
+
+### 1.confirm（显示模态对话框方法）
 
 `**Window.confirm()**` 方法显示一个具有一个可选消息和两个按钮(确定和取消)的模态对话框 。
 
@@ -562,6 +564,10 @@ result = window.confirm(message);
 
 - message 是要在对话框中显示的可选字符串。
 - result 是一个布尔值，表示是选择确定还是取消 (true表示OK)。
+
+### 2.URLSearchParams API  (处理URL之中查询字符串)
+
+`RLSearchParams` `API` 用于处理 `URL` 之中的查询字符串，即问号之后的部分。
 
 ## 事件
 
@@ -887,6 +893,7 @@ btn.onclick = function(){
 |   port   |         当前 URL 的端口号         |
 | protocol |          当前 URL 的协议          |
 |  search  | 从问号 (?) 开始的 URL（查询部分） |
+|  reload  |         自动刷新当前页面          |
 
 - location：负责管理浏览器地址相关的行为和信息的对象；
 
