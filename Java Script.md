@@ -684,7 +684,7 @@ var lis = document.querySelectorAll('li');
 
 ####   this指向
 
-- **this：当前调用者；**
+- this：当前调用者；
 
 <img src="images/this.bmp">
 
