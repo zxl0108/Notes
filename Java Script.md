@@ -292,6 +292,8 @@ for(var i =0; i < arr.length; i++){
 
 #### 5.splice  可进行数组任何位置的增删改
 
+#### 6.reverse() 方法用于颠倒数组中元素的顺序
+
 ```js
 // 数组的splice方法用于从数组的指定位置移除、添加、替换元素
 var arr = ['a','b','c','d','e'];
@@ -2009,3 +2011,4 @@ var btn = document.querySelector('input');
 
 
 
+!
