@@ -424,6 +424,17 @@ xhr.send();
 - 根据表单各项的name属性获取的，所以表单各项应该也有name属性。
 - 获取的结果是一个字符串，类似于username=xxx&password=yyy。
 
+#### SerializeArray对象（jQuery提供）
+
+```
+语法：$('form').serializeArray();
+```
+
+- 根据表单各项的name属性获取的，所以表单各项应该也有name属性。
+
+- serializeArray() 方法通过序列化表单值来创建对象数组（名称和值）。
+- 输出以数组形式序列化表单值的结果，此方法返回的是 JSON 对象而非 JSON 字符串。
+
 #### FormData与Serialize二者的区别
 
 - **Serialize获取的数据是一个字符串，适用于编码格式为'Content-Type', 'application/x-www-form-urlencoded'的表单。**
@@ -685,3 +696,67 @@ $.ajaxSetup({
 参考链接：
 
 > http://www.jquery123.com/category/ajax/global-ajax-event-handlers/
+
+## Ajax跨域请求
+
+### 同源政策（策略）
+
+- 它的含义是指，A 网站设置的 Cookie，B 网站不能打开，除非这两个网页同源。所谓同源指的是三个相同。
+  - 协议相同（http https）；
+  - 域名相同；
+  - 端口相同（http默认80端口，https默认443端口）；
+
+![img ](D:/Document/GitHub/Notes/images/clip_image002.jpg)
+
+- 随着互联网的发展，同源政策越来越严格。目前，如果非同源，共有三种行为受到限制。
+  - Cookie无法读取。
+  - DOM 无法获得。
+  - AJAX 请求无效（可以发送，但浏览器会拒绝接受响应）。
+
+### 跨域请求
+
+- 在发送Ajax请求的时候，请求的地址只要违反了同源政策，那么就属于跨域请求。
+
+#### 实现跨域请求的方案--JSONP
+
+- **JSON** with **P**adding，是一种借助于 `script` 标签发送跨域请求的技巧。
+- 其原理就是在客户端借助 `script` 标签请求服务端的一个地址，服务端的这个地址返回一段带有调用某个全局函数调用的 JavaScript 脚本（而非一段 HTML），将原本需要返回给客户端的数据通过参数传递给这个函数，函数中就可以得到原本服务端想要返回的数据。
+- 以后绝大多数情况都是采用 JSONP 的手段完成不同源地址之间的跨域请求。
+
+#### jQuery封装的ajax方法跨域请求
+
+- 方法：必须要指定dataType为jsonp；
+
+```js
+<!-- 使用jQuery提供的ajax方法，实现跨域请求 -->
+<script>
+    $.ajax({
+        type: 'GET',
+        // data: {}, // 发送给4000网站的数据
+        // url: 'http://127.0.0.1:4000/getHeroes?callback=?', // ? 可以理解为下面的success方法。
+        url: 'http://127.0.0.1:4000/getHeroes',
+        success: function (result) {
+            // result就是4000服务器返回的数据
+            console.log(result);
+        },
+        dataType: 'jsonp' // 必须要指定dataType为jsonp
+    });
+</script>
+```
+
+#### 实现跨域请求的方案--CORS
+
+- 通过在**被请求的路由中**设置header头，可以实现跨域。不过这种方式只有最新的浏览器（IE10）才支持。
+
+- Cross Origin Resource Share，跨域资源共享。
+
+- 前端发送ajax请求，还是照常发送即可，不需要做任何设置就行。
+
+- 这种方案无需客户端作出任何变化（客户端不用改代码），只是在被请求的服务端响应的时候添加一个 `Access-Control-Allow-Origin` 的响应头，表示这个资源是否允许指定域请求。
+
+  ```js
+   res.setHeader('Access-Control-Allow-Origin', '允许请求的网址');
+  ```
+
+  
+

@@ -2009,6 +2009,3 @@ var btn = document.querySelector('input');
 }
 ```
 
-
-
-!
