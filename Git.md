@@ -79,6 +79,31 @@ $ git --version
 
 > 注：`$` 表示命令提示符，不需要输入它
 
+### 使用Git管理项目
+
+项目使用Git管理，但是不需要 推送 到 远程仓库。
+
+新建一个 `项目代码` 的文件夹。首先初始化 Git。
+
+- git init
+
+把项目使用的html文件（manager文件夹）拷贝过来。
+
+执行 `git add .` 和 `git commit -m '添加了案例的所有静态页面'`
+
+使用Git：
+
+- git add .   (表示把所有改变的文件和新增的文件添加到暂存区，此时没有历史记录)
+- git commit -m '注释' （表示将暂存区的文件提交到本地仓库，这样就会有历史记录了）
+- git log --oneline （查看历史记录）3f2l445
+- git checkout 版本号  （切换到历史版本）
+- git checkout master  （回到主版本）
+- 多人开发，要先拉取，后推送
+
+- git remote add 别名 远程仓库地址
+- git push -u 别名 本地分支
+- git push
+
 ### Git三种区域及工作流程
 
 - 工作目录
