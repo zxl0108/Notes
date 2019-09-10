@@ -2,7 +2,7 @@
 
 - Ajax是一种技术、是能够使浏览器和服务器进行交互（请求响应）的一种技术。
 - Ajax也是一套内置在浏览器端的API，核心对象是 `XMLHttpRequest` ，通过这些API的调用，可以实现发送Ajax类型的请求和收取服务器端响应的数据。
-- **Ajax通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。**传统的网页（不使用 AJAX）如果需要更新内容，必须重载整个网页页面。
+- **Ajax通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新**。传统的网页（不使用 AJAX）如果需要更新内容，必须重载整个网页页面。
 
 访问服务器方法
 
@@ -15,7 +15,7 @@
 
 **1.创建XMLHttpRequest对象**
 
--  **如果面试题如何创建核心对象(代码实现)：背来下**
+-  **面试题如何创建核心对象(代码实现背来下)：**
 
 **2.注册监听**
 
@@ -29,9 +29,9 @@
 
 **4.发送请求**
 
-- *** 利用XMLHttpRequest对象的send()方法；**
-  - **如果请求类型是GET方式，send()方法不起作用； **
-  - **如果请求类型是POST方式，send()方法起作用；**
+- ** 利用XMLHttpRequest对象的send()方法**；
+  - **如果请求类型是GET方式，send()方法不起作用 **；
+  - **如果请求类型是POST方式，send()方法起作用**；
 
 #### 对象方法：
 
@@ -95,23 +95,22 @@ xhr.onload = function () {
     - 查询字符串只适合传输少量数据。
 
 ```js
-代码演示：<body>
-    <input type="button" id="btn" value="发送请求">
-    <script>
-        // 点击按钮的时候，发送ajax请求
-        document.getElementById('btn').onclick = function () {
-            // 1. 创建xhr对象
-            var xhr = new XMLHttpRequest();
-            // 2. 调用open，设置请求（方式、url）
-            xhr.open('GET', '/query-get?id=11&age=22');
-            // 3. 调用send，发送请求
-            xhr.send(null);
-            // 4. 当请求响应过程结束后，才获取服务器响应的结果
-            xhr.onload = function () {
-                console.log(this.response);
-            }};
-    </script>
-</body>
+//代码演示：
+<input type="button" id="btn" value="发送请求">
+<script>
+// 点击按钮的时候，发送ajax请求
+document.getElementById('btn').onclick = function () {
+	// 1. 创建xhr对象
+	var xhr = new XMLHttpRequest();
+	// 2. 调用open，设置请求（方式、url）
+	xhr.open('GET', '/query-get?id=11&age=22');
+	// 3. 调用send，发送请求
+	xhr.send(null);
+	// 4. 当请求响应过程结束后，才获取服务器响应的结果
+	xhr.onload = function () {
+		console.log(this.response);
+}};
+</script>
 ```
 
 完整的 Ajax 的 POST 请求示例：**![img](images/1399348-20180802145000260-118821620.png)
@@ -121,28 +120,27 @@ xhr.onload = function () {
 ```js
 使用的接口是 POST方式的checkUser，参数必须为username，值是注册的用户名；服务器上目前已有zhangsan、lisi、wangwu三个用户了。
 <body>
-    <input type="text" id="user"><span id="msg"></span>
-
-    <script>
-        // 当输入框失去焦点的时候，向接口checkUser发送ajax请求，验证用户名
-        document.getElementById('user').onblur = function () {
-            // 获取输入的值
-            var user = this.value;
-            // 发送ajax请求
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/checkUser');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('username=' + user);
-            xhr.onload = function () {
-                // console.log(this.response); // 如果返回true，说明用户名已被占用
-                if (this.response === 'true') {
-                    document.getElementById('msg').innerHTML = '<font color="red">sorry，用户名已被占用</font>';
-                } else {
-                    document.getElementById('msg').innerHTML = '<font color="green">恭喜，用户名可用</font>';
-                }
-            }
-        }
-    </script>
+<input type="text" id="user"><span id="msg"></span>
+<script>
+// 当输入框失去焦点的时候，向接口checkUser发送ajax请求，验证用户名
+	document.getElementById('user').onblur = function () {
+	// 获取输入的值
+	var user = this.value;
+	// 发送ajax请求
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/checkUser');
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send('username=' + user);
+	xhr.onload = function () {
+	// console.log(this.response); // 如果返回true，说明用户名已被占用
+		if (this.response === 'true') {
+			document.getElementById('msg').innerHTML = '<font color="red">sorry，用户名已被占用</font>';
+            } else {
+			document.getElementById('msg').innerHTML = '<font color="green">恭喜，用户名可用</font>';
+			}
+		}
+	}
+</script>
 </body>
 ```
 
@@ -272,7 +270,7 @@ var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Micr
 
 **responseType的可选值**
 
-- “”  -- 空，表示文本，和text一样。空为默认值
+- 空，表示文本，和text一样。空为默认值
 - text -- 文本
 - json -- JSON格式数据
 - document -- 文档对象。（当服务器返回的结果是XML类型的时候，需要指定为document）
@@ -296,7 +294,7 @@ xhr.send();
 
 - FormData是h5中新增的一个内置对象。
 - formDate对象用以将数据编译成键值对，以便用`XMLHttpRequest`来发送数据。其主要用于发送表单数据，但亦可用于发送带键数据(keyed data)，而独立于表单使用。
-- 以前 AJAX 操作只能提交字符串，现在可以提交 **二进制** 的数据。
+- 以前AJAX操作只能提交字符串，现在可以提交**二进制**的数据。
 - **上述使用FormData的时候，form表单中的各项必须有name属性。没有name属性是收集不到数据的**
 
 **使用方法一（有form表单）**

@@ -24,13 +24,13 @@
 
 ### 1Click(点击)
 
-- **作用:  ** 注册给谁：元素对象（DOM节点）；用于和用户交互的动作，尤其是鼠标的点击本质为浏览器里面一种触发响应的一种机制；注册就是为了就是为了和用户交流互动;
+- **作用**：注册给谁：元素对象（DOM节点）；用于和用户交互的动作，尤其是鼠标的点击本质为浏览器里面一种触发响应的一种机制；注册就是为了就是为了和用户交流互动;
 
 ```js
 // btn 事件源：通过谁要触发这个事件，也就是元素对象；
 // click 事件类型：用户通过什么行为,去触发一件事；
 btn.onclick = function(){
-  console.log('被点击了');}
+console.log('被点击了');}
 ```
 
 ### 2.Focus、Blur(获取/失去焦点)
@@ -54,14 +54,14 @@ input.onblur =  function(){
 
 ### 3.AddEventListener(添加事件监听)
 
-- **优点: ** 添加事件监听，可以多次注册事件,不会被覆盖；
+- **优点**：添加事件监听，可以多次注册事件,不会被覆盖；
 
 ```js
 var btn = document.querySelector('#btn');
 //  参数： 事件类型 - 字符串； 事件处理程序 - function 
 // 返回值：undefined
 btn.addEventListener('click', function() {
-    console.log(123);
+console.log(123);
 ```
 
 ### 4.keydown、Keyup(键盘事件)
@@ -73,7 +73,7 @@ btn.addEventListener('click', function() {
 
 #### 2.键盘码
 
-- **事件对象.keyCode，**被称为键盘码，按键对应的数字不一样，需要判断数字知道按下的按键；
+- **事件对象.keyCode**：被称为键盘码，按键对应的数字不一样，需要判断数字知道按下的按键；
 - 例如：keyCode==13 回车键；keyCode==16 shift键；
 - ctrl属性：**事件对象属性ctrlKey；如果是true，按下了ctrl键；**
 
@@ -94,9 +94,9 @@ text.onkeydown = function(e) {
 
 ### 5.Mousedown、Mousemove、Mouseup(点击鼠标触发)
 
-- **mousedown：**当鼠标的按键被点下的时候触发;
-- **mousemove：**鼠标在某个元素身上移动的时候触发;
-- **mouseup ：**当鼠标的按键被松开的时候触发;
+- **mousedown**：当鼠标的按键被点下的时候触发;
+- **mousemove**：鼠标在某个元素身上移动的时候触发;
+- **mouseup **：当鼠标的按键被松开的时候触发;
 
 ```js
 案例:盒子跟随鼠标移动mousemove
@@ -116,9 +116,9 @@ text.onkeydown = function(e) {
 
 ### 6.Mouseover、Mouseout(鼠标移入)
 
-- **mouseover：**鼠标移入时出发事件；
+- **mouseover**：鼠标移入时出发事件；
 
-- **mouseout：**鼠标移除时触发事件；
+- **mouseout**：鼠标移除时触发事件；
 
   ```js
   <div class="box" index=0></div>
@@ -143,8 +143,8 @@ text.onkeydown = function(e) {
 ### 7.Transitionend、Animationend(动画结束事件)
 
 - 动画结束事件：专门是指c3里面的动画结束会触发的事件，c3动画有两种，结束动画事件也有两个；
-- **transitionend：**元素的过渡动画结束的时候触发；
-- **animationend：**会在帧动画结束的时候触发；
+- **transitionend**：元素的过渡动画结束的时候触发；
+- **animationend**：会在帧动画结束的时候触发；
 
 ```js
 var box = document.querySelector('.box');
@@ -153,20 +153,20 @@ box.addEventListener('transitionend/animationend',function(){
 });
 ```
 
-- **注意:**
+**注意**:
 
-  - 不能使用on的方式注册，只能使用addEventListener的方式注册；
+- 不能使用on的方式注册，只能使用addEventListener的方式注册；
 
-  - 如果帧动画是无限次的，不会触发该事件；
+- 如果帧动画是无限次的，不会触发该事件；
 
 ### 8.Touch（触摸事件【移动端】）
 
 - 移动端不使用click的：，移动端会在**点下的瞬间需要知道到底是单击还是双击**，有一个短暂的延迟才会执行click事件，但是这个对于用户来说不是太友好。
 - 触摸事件在pc端是不会触发的，必须是在移动端才可以；推荐使用addEventListener注册；
 - **移动端事件：触摸事件**
-  - **touchstart：**会在手指触摸到屏幕的时候触发；
-  - **touchmove：**会在手指触摸到屏幕，移动的过程中触发；
-  - **touchend：**会在手指离开屏幕的瞬间触发；
+  - **touchstart**：会在手指触摸到屏幕的时候触发；
+  - **touchmove**：会在手指触摸到屏幕，移动的过程中触发；
+  - **touchend**：会在手指离开屏幕的瞬间触发；
 
 - **事件对象属性：触摸点**
   - 事件对象.touches - 屏上面的触摸点；
@@ -179,19 +179,19 @@ box.addEventListener('transitionend/animationend',function(){
 
 ### 1.标准属性(style)
 
-- **标准属性含义:**属于某个标签的下面，设置后会有各个方向不同的表现，有的是管图片的显示，有的是管样式，这些都叫标准属性；像img标签内有src，盒子有id和class,a有href，大家都有style。
-- **style属性:**
+- **标准属性含义**：属于某个标签的下面，设置后会有各个方向不同的表现，有的是管图片的显示，有的是管样式，这些都叫标准属性；像img标签内有src，盒子有id和class,a有href，大家都有style。
+- **style属性**：
 
 1. style属性里面的内容其实是多个**键值对**，js帮我们把它们以对象的方式管理起来；
 2. 获取：只需要  `元素对象.style.样式属性名；`如果样式属性名是多个单词的，需要把样式属性的`-` 去掉，修改为驼峰命名；
 
 ```js
-  // 页面中body只有一个，获取body这个DOM节点;
-  var dom_div = document.getElementById("div");
-  // 注册事件完成；
-  dom_div.onclick = function() {
-    // 响应的内容；
-  document.body.style.backgroundColor = "#000"; };// 页面的背景色变色；
+// 页面中body只有一个，获取body这个DOM节点;
+var dom_div = document.getElementById("div");
+// 注册事件完成；
+dom_div.onclick = function() {
+// 响应的内容；
+document.body.style.backgroundColor = "#000"; };// 页面的背景色变色；
 ```
 
 #### 1.Checked(选择)
@@ -556,7 +556,7 @@ console.log(res.width);//输出underfind，找不到；
 
 ### 1.confirm（显示模态对话框方法）
 
-`**Window.confirm()**` 方法显示一个具有一个可选消息和两个按钮(确定和取消)的模态对话框 。
+`Window.confirm()` 方法显示一个具有一个可选消息和两个按钮(确定和取消)的模态对话框 。
 
 ```html
 result = window.confirm(message);
@@ -578,7 +578,7 @@ result = window.confirm(message);
 - 事件发生的时候，存在这三个传播的阶段：**捕获、到达目标、冒泡；**
   - 捕获：从根部往目标DOM节点上，一层一层的找，捕获是用户点击了那个DOM节点；
   - 冒泡：从目标节点到跟接单；
-  - 冒泡执行：**事件默认是在冒泡阶段执行；**当我们目标DOM节点注册了事件，冒泡往上的DOM节点也注册了同样的事件话，也会执行；
+  - 冒泡执行：**事件默认是在冒泡阶段执行**；当我们目标DOM节点注册了事件，冒泡往上的DOM节点也注册了同样的事件话，也会执行；
 
 **冒泡案例：**
 
@@ -587,7 +587,8 @@ result = window.confirm(message);
 ```js
 JavaScript数组实现冒泡排序：
 实现原理
-数组中有 n 个数，比较每相邻两个数，如果前者大于后者，就把两个数交换位置；这样一来，第一轮就可以选出一个最大的数放在最后面；那么经过 n-1（数组的 length - 1） 轮，就完成了所有数的排序。
+数组中有 n 个数，比较每相邻两个数，如果前者大于后者，就把两个数交换位置；
+这样一来，第一轮就可以选出一个最大的数放在最后面；那么经过 n-1（数组的 length - 1） 轮，就完成了所有数的排序。
 1.好的，我们先来实现找数组中的最大数，并把他放到数组最后。
 var arr = [3,4,1,2];
 // 遍历数组，次数就是arr.length - 1
@@ -659,46 +660,46 @@ erzi.addEventListener('click',function(e){
 
 #####   1.client（可视区域）
 
-​	**语法：**事件对象.clientX、clientY;
+​	**语法**：事件对象.clientX、clientY;
 
-​	**可视区域坐标系：**以浏览器的可视区域的左上角为原点的;
+​	**可视区域坐标系**：以浏览器的可视区域的左上角为原点的;
 
-​	**可视区域：**就是元素用来显示内容的区域;
+​	**可视区域**：就是元素用来显示内容的区域;
 
 #####      2.page（Body左上角）
 
-​	**语法：**事件对象.pageX 、pageY;
+​	**语法**：事件对象.pageX 、pageY;
 
-​	**页面坐标系：**以body的左上角作为原点；
+​	**页面坐标系**：以body的左上角作为原点；
 
 ####    2.target（点击目标）
 
-​	**语法：**事件对象.target；
+​	**语法**：事件对象.target；
 
-​	**作用：**事件的目标对象，用户点击到谁上面了；用于事件委托；
+​	**作用**：事件的目标对象，用户点击到谁上面了；用于事件委托；
 
 #####      currentTarget
 
-​	**语法：**e.currentTarget==this -----> true；
+​	**语法**：e.currentTarget==this -----> true；
 
-​	**作用：** 事件的绑定对象，就是是绑定在哪个DOM节点上 和 this一样；前面说的事件源；
+​	**作用**：事件的绑定对象，就是是绑定在哪个DOM节点上 和 this一样；前面说的事件源；
 
 #### 3.方法
 
 #####    1.阻止冒泡
 
-​	**语法：**事件对象.stopPropagation();
+​	**语法**：事件对象.stopPropagation();
 
 #####    2.阻止默认行为
 
-​	**语法：**事件对象.preventDefault();
+​	**语法**：事件对象.preventDefault();
 
 #####    3.页面右键事件 查看右键菜单
 
 ```js
 语法：document.oncontextmenu = function(e){
-  		e.preventDefault();
-	}
+	e.preventDefault();
+}
 ```
 #####    4.阻止a标签跳转
 
@@ -725,20 +726,19 @@ dom_a.addEventListener('click', function(e) {
 - 开关思想：
 
 ```js
-  // 一开始，没有点过
-  var isClick = false;
-  // 获取按钮，注册点击事件
-  var begin = document.querySelector('.begin');
-  var zhizhen = document.querySelector('.zhizhen');
-  var angle = 0
-  begin.onclick = function() {
-    // false证明没有点击过，就可以点
-    if (isClick === false) {
-      // 点下之后，把开关关掉
-      isClick = true;
-      
-      // console.log('点击过了');
-      angle += Math.random() * 360 * 6;
+// 一开始，没有点过
+var isClick = false;
+// 获取按钮，注册点击事件
+var begin = document.querySelector('.begin');
+var zhizhen = document.querySelector('.zhizhen');
+var angle = 0
+begin.onclick = function() {
+// false证明没有点击过，就可以点
+	if (isClick === false) {
+	// 点下之后，把开关关掉
+		isClick = true;
+		// console.log('点击过了');
+		angle += Math.random() * 360 * 6;
       // 4 修改指针的transform  transform: rotate(10deg);
       zhizhen.style.transform = 'rotate(' + angle + 'deg)';
     }}
@@ -787,7 +787,7 @@ btn.addEventListener('click',function fn(){
 
   - 所有window对象的属性和方法，**都可以直接省略  `window.`，而直接使用；**
   - 因为window对象在浏览器中被称为**顶级对象**；
-  - **顶级对象：**页面中所有的东西都是依赖于这个对象存在的；
+  - **顶级对象**：页面中所有的东西都是依赖于这个对象存在的；
   - 变量与函数：
     - **所有的全局变量和全局函数都是window对象的属性和方法**；
     - 在js代码中,不使用var声明的变量都是隐式全局变量（不推荐使用）,不使用var声明变量不会提升;
@@ -843,7 +843,7 @@ var timer = setInterval(函数,间隔);
 clearInterval(timer);
 ```
 
-**注：**上面的两个方法都是window对象下的方法；**执行定时器，都是等待自己的间隔才开始执行**；
+**注**：上面的两个方法都是window对象下的方法；**执行定时器，都是等待自己的间隔才开始执行**；
 
 ### 3.案例：获取验证码-倒计时
 
@@ -883,7 +883,7 @@ btn.onclick = function(){
 
 ## location（属性）
 
-|   属性   |                                   |
+|   属性   |               作用                |
 | :------: | :-------------------------------: |
 |   hash   |    从井号 (#) 开始的 URL（锚）    |
 |   host   |     主机名和当前 URL 的端口号     |
@@ -911,10 +911,10 @@ btn.onclick = function(){
 
 - 以前的数据我们在页面操作后，页面刷新数据就没有了；这就需要把数据进行**本地储存，**刷新后数据依旧再；
 - 本地储存：本地指浏览器；储存指浏览器可以储存数据；
-- **存储数据：localStorage.setItem(键,值);**
-- **获取数据：localStorage.getItem(键);**
-- **删除数据：localStorage.removeItem(键);　**
-- **全部清空：localStorage.clear();　**
+- **存储数据：localStorage.setItem(键,值)**
+- **获取数据：localStorage.getItem(键)**
+- **删除数据：localStorage.removeItem(键)**
+- **全部清空：localStorage.clear()**
 
 ```js
 // 存储： 后面的值 前面可以放入任何数据类型，保存后为字符串；

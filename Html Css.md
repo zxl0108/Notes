@@ -11,17 +11,18 @@
 
 ​	常用解决网页上的乱码的现象  在head标签中添加<meta charset="GBK”"/>
 
-那么在企业开发中我们因该使用GBK(GB2312)还是UTF-8呢？
+企业开发中我们因该使用GBK(GB2312)还是UTF-8呢？
 
--如果网站仅仅包含中文，推荐使用GB2312，因为它的提及更小，访问速度更快；
+- 如果网站仅仅包含中文，推荐使用GB2312，因为它的提及更小，访问速度更快；
 
--如果网站除了中文以外，还包含其他国家的语言，推荐使用UTF-8；
 
--推荐直接使用UTF-8即可。
+- 如果网站除了中文以外，还包含其他国家的语言，推荐使用UTF-8；（推荐直接使用UTF-8即可）
 
-​	**注意点：**在HTML文件中指定的字符集必须要和保存这个文件的字符集一致，否则还是会出现乱码。
 
-​	所以仅仅指定字符集不一定能解决出现乱码的问题，还是需要保存文件的时候，文件保存的格式和指定的字符集一致才能保证没有出现乱码的问题。                                             
+- 注意点：在HTML文件中指定的字符集必须要和保存这个文件的字符集一致，否则还是会出现乱码。
+
+
+所以仅仅指定字符集不一定能解决出现乱码的问题，还是需要保存文件的时候，文件保存的格式和指定的字符集一致才能保证没有出现乱码的问题。                                             
 
 ## DTD文档声明
 
@@ -58,35 +59,38 @@
 
 ### 6.A标签的基本使用及属性
 
-​	a标签作用：控制页面与页面之间的跳转的;
-​      ` <a href="指定需要跳转的目标界面">需要展现给用户查看的内容</a>`;
+a标签作用：控制页面与页面之间的跳转的;
 
-注意点： 1.a标签不仅可以让文字可以点击，还0.可以让图片也能够被点击(默认打开)；
+```html
+ <a href="指定需要跳转的目标界面">需要展现给用户查看的内容</a>`;
+```
 
-​                2.一个a标签必须有一个href属性，否则a标签不知道要跳转到什么地方；
-​                3.如果通过a标签的href属性指定一个地址，那么必须在地址前面加上http://或者是https：//；
+注意点：
+
+- a标签不仅可以让文字可以点击，还0.可以让图片也能够被点击(默认打开)；
+
+- 一个a标签必须有一个href属性，否则a标签不知道要跳转到什么地方；
+
+- ```html
+  如果通过a标签的href属性指定一个地址，那么必须在地址前面加上http://或者是https：//；
+  ```
 
 ### 7.Base标签
 
 ​	作用：专门用来统一的指定当前网页中所有的超链接需要如何打开。
-​	注意点：1、base标签必须写在head标签的开始标签和接受标签之间。
+​	注意点：
 
-​			2、就近原则，a标签中的target比base中的target更高级。
-
-​			3、base标签放到head下边。
+- base标签必须写在head标签的开始标签和接受标签之间。
+- 就近原则，a标签中的target比base中的target更高级。
+- base标签放到head下边。
 
 ### 8.列表标签
 
 HTML中列表标签的分类
-       1无序列表（最多）（unordered list)；
 
-<ul>
-    <li>定义想要的内容</li>
-</ul>
-
-​	2有序列表（最少）(orderedlist)；
-
-​       3定义列表（其次）(definitionlist)；
+- 无序列表（最多）（unordered list)；
+- 有序列表（最少）(orderedlist)；
+- 定义列表（其次）(definitionlist)；
 
 ```html
  <dl>
@@ -106,57 +110,57 @@ HTML中列表标签的分类
 </table>
 ```
 
-2.表格标签作用：用来给一堆数据添加表格语义
-	 其实表格是一种数据的展现形式，当数据量非常大的时候，表格这种展现形式被认为是最为清晰的一种展现形式。
+- 表格标签作用：用来给一堆数据添加表格语义
+- 其实表格是一种数据的展现形式，当数据量非常大的时候，表格这种展现形式被认为是最为清晰的一种展现形式。
+  - 宽度（width）和高度（height）的属性：可以给table和td标签使用。
+  - 水平对齐（align）和垂直对齐（valign）的属性：就只有table标签不能使用valign。
+  - 外边距（cellspacing）和内边距（cellpadding）的属性：只能给table标签使用。
 
-​       1.宽度（width）和高度（height）的属性：可以给table和td标签使用。
-​        2.水平对齐（align）和垂直对齐（valign）的属性：就只有table标签不能使用valign。
-​        3.外边距（cellspacing）和内边距（cellpadding）的属性：只能给table标签使用。
+- 细线表格的制作方式： border   border=”1；
+- 给table标签设置cellspacing="1px ；
 
-3.细线表格的制作方式： border   border=”1；
-        1.给table标签设置bgcolor；
-        2.给tr标签设置bgcolor；
-        3.给table标签设置cellspacing="1px ；
+- align=”center”如果用在table上,是整个表格居中的方式,如果用在tr,th上是整行整列的居中。 
+- 注意点：table标签和tr标签以及td标签都支持bgcolor属性。
 
-​       4.align=”center”如果用在table上,是整个表格居中的方式,如果用在tr,th上是整行整列的居中。 
+#### 表格标题
 
-注意点：table标签和tr标签以及td标签都支持bgcolor属性。
+- 在表格标签中提供了一个专门用来设置表格的标题，这个标签叫做caption。只要将标题写在caption标签中，那么标题就会自动相对于表格的宽度居中。
+- 注意点：
+  - caption一定要写在table标签中，否则无效。
+  - caption一定要紧跟在table标签后面。
 
-4.**表格标题**
-        在表格标签中提供了一个专门用来设置表格的标题，这个标签叫做caption。只要将标       题写在caption标签中，那么标题就会自动相对于表格的宽度居中。
-        注意点：1.caption一定要写在table标签中，否则无效。
+#### 标题单元格标签
 
-​                     2.caption一定要紧跟在table标签后面
- 5.**标题单元格标签**
-​               表格标签照片那个提供了一个标签专门用力存储每一列的标题，这个标签叫做th标签，只要将当前的标题存储在这个标签中就会自动居中+加粗文字。
-​        到此为止我们就发现，其实表格中有两种单元格，一种是td，一种是th。td是专门用来存储数据的，th是专门用用来存储当前的标题的。
+- 表格标签照片那个提供了一个标签专门用力存储每一列的标题，这个标签叫做th标签，只要将当前的标题存储在这个标签中就会自动居中+加粗文字。
+- 到此为止我们就发现，其实表格中有两种单元格，一种是td，一种是th。td是专门用来存储数据的，th是专门用用来存储当前的标题的。
 
-6.**caption:指定表格的标题(放在表格中,table下面)**
-        thead作用：指定表格的表头信息(thead放在整个tr上边包裹整个tr的双标签)；
-        tbody作用：指定表格的主体信息；
-        tfoot作用：指定表格的附加信息；
+##### caption:指定表格的标题(放在表格中,table下面)
 
-7.**水平方向上的单元格合并(跨列合并)**
-        可以给td标签添加一个colspan属性，来指定把某一个单元格当做多个单元格来看待；
+- thead作用：指定表格的表头信息(thead放在整个tr上边包裹整个tr的双标签)；
+- tbody作用：指定表格的主体信息；
+- tfoot作用：指定表格的附加信息；
+
+##### 水平方向上的单元格合并(跨列合并)
+
+- 可以给td标签添加一个colspan属性，来指定把某一个单元格当做多个单元格来看待；
 
 ```html
 例如：	<td colspan="2"></td>；
 ```
 
-8.**垂直向下的单元格合并(跨行合并)**
+##### 垂直向下的单元格合并(跨行合并)
 
-​	可以给td标签添加一个rowspan属性，来指定把某一个单元格当做多个单元格来看待；
+- 可以给td标签添加一个rowspan属性，来指定把某一个单元格当做多个单元格来看待；
+
 
 ```html
 例如：	<td rowspan="2"></td>；
 ```
 
-​      **含义：**把当前单元格当做两个单元格来看待；
+注意点：
 
-**注意点：**
-        1.由于把某一个单元格当做了多个单元来看到，所以就会多出一些单元格，所以需要删掉一些单元格才能正常显示；
-
-           2. 横行竖列一定要记住单元格合并永远是先上后下或者先左后右，而不能向前或向上合并；
+- 由于把某一个单元格当做了多个单元来看到，所以就会多出一些单元格，所以需要删掉一些单元格才能正常显示；
+-  横行竖列一定要记住单元格合并永远是先上后下或者先左后右，而不能向前或向上合并；
 
 ### 10.表单标签
 
@@ -166,34 +170,34 @@ HTML中列表标签的分类
 
 ```html
 格式：
-   <form>
-          <表单元素>
-   </form>
+<form>
+	<表单元素>
+</form>
 ```
 **常见的表单元素**
 
 #####   1.明文输入框（可以看见）
 
 ```html
-	<input type="text">;	placeholder占位符(用于控制输入框文字属性)；
+<input type="text">;	placeholder占位符(用于控制输入框文字属性)；
 ```
 
 #####   2.暗文输入框（看不见）
 
 ```html
-	<input type="password">;
+<input type="password">;
 ```
 
 #####   3.给输入框设置默认值
 
 ```html
-	<input type="text" value="（想设置的默认值）">;（在input标签里加上value标签）；
+<input type="text" value="（想设置的默认值）">;（在input标签里加上value标签）；
 ```
 
 #####   4.单选框
 
 ```html
-	<input type="radio">；
+<input type="radio">；
 ```
 
 1. 在默认情况下单选框不会互斥，要想单选框互斥那么必须给每一个单选框标签都设置一个name属性，然后name属性还必须设置相同的值；
@@ -202,29 +206,26 @@ HTML中列表标签的分类
 
 ```html
 案例：       
-	<input type="checkbox" checked="checked">唱歌(默认选择)
-	<input type="checkbox" checked="checked">跳舞(默认选择)
-	<input type="checkbox" checked="checked">绘画(默认选择)
-	<input type="checkbox">篮球
-	<input type="checkbox">足球
+<input type="checkbox" checked="checked">唱歌(默认选择)
+<input type="checkbox" checked="checked">跳舞(默认选择)
+<input type="checkbox" checked="checked">绘画(默认选择)
+<input type="checkbox">篮球
+<input type="checkbox">足球
 ```
 
 ##### 5.按钮（表单标签）
 
-​	**1.普通按钮	<input type="button" value="">**
+```html
+普通按钮	<input type="button" value="">
+图片按钮	<input type="image" src="">
+重置按钮	<input type="reset"> (清空表单中的内容）
+提交按钮	<input type="submit"> 
+隐藏域		 <input type="hidden">（配合提交按钮，在后台提交数据，用户看不到）
+```
 
-​	**2.图片按钮	<input type="image" src="">**
-
-​	**3.重置按钮	<input type="reset"> (清空表单中的内容）;**
-
-​	**4.提交按钮	<input type="submit"> **
-
-​	**5.隐藏域       <input type="hidden">（配合提交按钮，在后台提交数据，用户看不到）；**
-
-提交按钮将表单中的数据提交到远程服务器需要具备的条件：
-
- 	1. 给form标签添加action属性，通过其提交到指定服务器 action="http//:..."；
- 	2. 给需要提交的元素添加name元素 name="username"（值可以随便写）；
+- 提交按钮将表单中的数据提交到远程服务器需要具备的条件：
+  1. 给form标签添加action属性，通过其提交到指定服务器 action="http//:..."；
+  2. 给需要提交的元素添加name元素 name="username"（值可以随便写）；
 
 #### 6.lable标签
 
@@ -246,27 +247,28 @@ HTML中列表标签的分类
 
 ```html
 <select>
-
 	<option>选项1</option>
 	<option>选项2</option>
 	<option>选项3</option>
 </select>
 ```
 
-**注意：**
+注意：
 
-​       1.<select></select>中至少应包含一对<option></option>。
+- 在option 中定义selected =" selected "时，当前项即为默认选中项。
 
-​       2.在option 中定义selected =" selected "时，当前项即为默认选中项。
+```html
+<select></select>中至少应包含一对<option></option>。
+```
 
 #### 9.表单域
 
 - 在HTML中，form标签被用于定义表单域，即创建一个表单，以实现用户信息的收集和传递，form中的所有内容都会被提交给服务器。创建表单的基本语法格式如下：
 
 ```
-	<form action="url地址" method="提交方式" name="表单名称">
-    	（各种表单控件）；
-	</form>
+<form action="url地址" method="提交方式" name="表单名称">
+	（各种表单控件）；
+</form>
 ```
 
 - 常用属性： 
@@ -392,12 +394,12 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 
   ```css
   <style>
-  	.box{
-  		width: 86px;
-  		height: 28px;
-  		background-image: url(images/weibo.png);
-  		background-position: -425px -200px;
-  		}
+  .box{
+  	width: 86px;
+  	height: 28px;
+  	background-image: url(images/weibo.png);
+  	background-position: -425px -200px;
+  	}
   </style>
   <div class="box"></div>
   ```
@@ -494,7 +496,7 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
   }  
  	to/100% {
       结束状态
-  }}
+}}
 ```
 
 #### 2.调用动画
@@ -590,9 +592,10 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 
 - 行内元素（内联元素）不占有独立的区域，仅仅靠自身的字体大小和图像尺寸来支撑结构，一般不可以设置宽度、高度、对齐等属性，常用于控制页面中文本的样式。
 
-- ```html
-  常见的行内元素有<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>等，其中<span>标签最典型的行内元素。
-  ```
+
+```html
+常见的行内元素有<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>等，其中<span>标签最典型的行内元素。
+```
 
 #### 特点
 
@@ -607,9 +610,10 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 
 - 行内块元素可以对它们设置宽高和对齐属性。
 
-- ```html
-  行内块元素中的标签<img />、<input />、<td>；
-  ```
+
+```html
+行内块元素中的标签<img />、<input />、<td>；
+```
 
 #### 特点
 
@@ -617,7 +621,7 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 2. 默认宽度就是它本身内容的宽度。
 3. 高度，行高、外边距以及内边距都可以控制。
 
-![1565397603207](D:/Document/GitHub/Notes/images/1565397603207.png)
+![1565397603207](images/1565397603207.png)
 
 ## 盒子模型
 
@@ -649,7 +653,7 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 
 ### 盒子阴影
 
-![1565357211702](D:/Document/GitHub/Notes/images/1565357211702.png)
+![1565357211702](images/1565357211702.png)
 
 - box-shadow：水平阴影 垂直阴影 模糊距离（虚实）阴影尺寸（影子大小）阴影颜色  内/外阴影；
 
@@ -746,7 +750,7 @@ clearfix {*zoom: 1;}
 
 ### CSS优先级
 
-![1565356702422](../../Notes/Notes/images/1565356702422-1567859050704.png)
+![1565356702422-1567859050704](images/1565356702422-1567859050704.png)
 
 - 总结：权重是优先级的算法，层叠是优先级的表现；
 
@@ -846,9 +850,8 @@ clearfix {*zoom: 1;}
 
 - 想要理想视口，我们需要给我们移动端页面添加meta视口标签；
 
-- ```html
-  配置方式:<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  ```
+
+> 配置方式:<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 ### 二倍图
 
@@ -1024,5 +1027,4 @@ clearfix {*zoom: 1;}
 - 除超小屏以外：版心的宽度设置都是小于当前档位最小界值，比如 min-width: 768px，版心是750px；
 - 原因：两边留空，体验好。
 
-![1567604618297](../../Notes/Notes/images/1567604618297.png)
-
+![1567604618297](images/1567604618297.png)
