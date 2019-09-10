@@ -669,7 +669,9 @@ aa();
 初始化：
 
 > npm init -y
+>
 > npm init --yes
+>
 > npm init
 
 全局安装：
@@ -678,10 +680,15 @@ aa();
 - 全局安装的东西，不能通过require加载。
 
 > 安装命令
+>
 > npm i 包名 -g
+>
 > npm install 包名 -g
->  卸载命令
+>
+> 卸载命令
+>
 > npm un 包名 -g
+>
 > npm uninstall 包名 -g
 
 本地安装：
@@ -698,24 +705,36 @@ aa();
 安装第三方包：
 
 >  老版本的node安装，后面加 --save,是为了把安装的第三方模块在package.json中做记录，新版不用
-> npm install 包名 --save
+>
+>  npm install 包名 --save
+>
 >  正常的安装
-> npm install 包名
+>
+>  npm install 包名
+>
 >  一次安装多个包，名字之间用空格隔开
-> npm install 包名1 包名2 包名3
-> npm i express mysql art-template
+>
+>  npm install 包名1 包名2 包名3
+>
+>  npm i express mysql art-template
+>
 >  指定包的版本进行安装
-> npm install 包名@版本号
->  简写
-> npm i 包名
+>
+>  npm install 包名@版本号
+>
+>  npm i 包名(简写)
 
 从缓存目录安装包：
 
 >  查看缓存目录：
-> npm config get cache
-> 从缓存目录下载包
+>
+>  npm config get cache
+>
+>  从缓存目录下载包
+>
 >  --cache-min 后面跟的是时间，单位是分钟，超过这个时间才去服务器下载
-> npm install 包名 --cache-min 9999999
+>
+>  npm install 包名 --cache-min 9999999
 
 查看全局安装目录：
 
@@ -728,18 +747,25 @@ aa();
 - 国内淘宝的开发团队把 npm 在国内做了一个备份，网址是：http://npm.taobao.org/。
 
 >  查看当前的源
-> npm config ls
->  在上面命令的结果有，有下面一行，该行记录的网站就是我们安装第三方模块的网站
->  registry = "https://registry.npmjs.org/"
+>
+>  npm config ls
+>
+>  在上面命令的结果有，有下面一行，该行记录的网站就是我们安装第三方模块的网站 "https://registry.npmjs.org/"
 >
 >  下载包的时候切换源
-> npm install express --registry=https://registry.npm.taobao.org
+>
+>  npm install express --registry=https://registry.npm.taobao.org
 >  全局设置
-> npm config set registry https://registry.npm.taobao.org
+>
+>  npm config set registry https://registry.npm.taobao.org
+>
 >  原始的路径
+>
 >  https://registry.npmjs.org/
+>
 >  nrm 是管理镜像源的模块，通过nrm来管理镜像源
-> npm i nrm   自行查询如何使用 
+>
+>  npm i nrm   自行查询如何使用 
 
 ### package.json
 

@@ -592,10 +592,7 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 
 - 行内元素（内联元素）不占有独立的区域，仅仅靠自身的字体大小和图像尺寸来支撑结构，一般不可以设置宽度、高度、对齐等属性，常用于控制页面中文本的样式。
 
-
-```html
-常见的行内元素有<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>等，其中<span>标签最典型的行内元素。
-```
+> 常见的行内元素有<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>等，其中<span>标签最典型的行内元素。
 
 #### 特点
 
@@ -851,7 +848,7 @@ clearfix {*zoom: 1;}
 - 想要理想视口，我们需要给我们移动端页面添加meta视口标签；
 
 
-> 配置方式:<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+> 配置方式:<  meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-s cale=1.0" >
 
 ### 二倍图
 
