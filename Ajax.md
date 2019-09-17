@@ -29,7 +29,7 @@
 
 **4.发送请求**
 
-- ** 利用XMLHttpRequest对象的send()方法**；
+- **利用XMLHttpRequest对象的send()方法**；
   - **如果请求类型是GET方式，send()方法不起作用 **；
   - **如果请求类型是POST方式，send()方法起作用**；
 
