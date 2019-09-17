@@ -123,7 +123,7 @@ console.log(b); //输出为world;
 // 情况4，剩余值
 let obj={name:'张扬',age:18,gender:'男'};
 let{name,...a}=obj;
-console.log(name,a);    //输出张扬 b为{age: 18 gender: "男"}
+console.log(name,a);    //输出张扬 a为{age: 18 gender: "男"}
 
 //情况5，复杂的情况，只要符合模式，即可解构;
     let obj={

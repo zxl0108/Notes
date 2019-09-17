@@ -414,7 +414,7 @@ var arr = ['a','b','c','d','e'];
 // 表示 从下标1（包括），截取到下标为4(不包括),
 var res = arr.slice(1, 4);
 // 如果不给第二个参数，默认就是把从start开始，到length结束的所有的元素截取
-var arr_1 = arr_2.slice(1);
+var arr_1 = arr.slice(1);
 ```
 
 ### 6.复制数组
@@ -986,7 +986,7 @@ console.log(str.charAt(2));//输出：中；
 
 #### 1.split
 
-- split 字符串转数字，后面的分隔的字符；
+- split 字符串转数组，后面的分隔的字符；
 
 
 ```js
