@@ -1,8 +1,8 @@
-# Vue的学习
+# Vue笔记
 
 ## Vue基础
 
-### Vue的认识
+Vue的认识
 
 - Vue是一个优秀的**前端框架**，开发者按照Vue的规范进行开发。
 
@@ -57,9 +57,7 @@ el: document.getElementById("#app") // dom对象
 ```js
 var vm = new Vue({
 el:"#app",
-data:{
-showMessage: false,
-}
+data:{showMessage: false,}
 })
 console.log(vm.showMessage)
 vm.showMessage = true
@@ -86,11 +84,8 @@ fn1:function(){
   console.log(this.name)
   this.fn2() // 调用方法2
 },
-fn2() {
-  // es6 写法
-  console.log(this.name2)
-}
-}
+fn2() {console.log(this.name2)	// es6 写法
+}}
 })
 ```
 
@@ -188,7 +183,12 @@ count: newValue
 ##### created
 
 - created:在模板渲染成html前调用，即通常初始化某些属性值，然后再渲染成视图。
+- 在created的时候，视图中的html并没有渲染出来，所以此时如果直接去操作html的dom节点，一定找不到相关的元素。
 - 作用：created函数一般用于调用ajax，获取页面初始化所需的数据。
+
+##### mounted
+
+- mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
 
 ### Vue的指令
 
@@ -231,10 +231,7 @@ count: newValue
 <script>
 	new Vue({
 		el: '#app',
-		data: {
-			str: 'abc',
-			strhtml: '<span>content</span>'
-         }
+		data: {str: 'abc',strhtml: '<span>content</span>'}
      });
 </script>
 ```
@@ -260,9 +257,7 @@ count: newValue
 <script>
 new Vue({
    el: '#app',
-   data: {
-       isShow: false
-   }
+   data: {isShow: false}
 });
 </script>
 ```
@@ -364,34 +359,20 @@ new Vue({
 <script>
  new Vue({
      el: '#app',
-     data: {
-         list: ['a', 'b', 'c'],
-     },
-     methods: {
-     }
+     data: {list: ['a', 'b', 'c'],},
  })
 </script>
 
 <!-- 循环对象的用法 -->
 <div id="app">
 <!-- (v,k,i)in 对象(数组和对象) v:值，k:键，i:对象中每对key-value的索引 从0开始（ v,k,i是参数名,）-->
-<p v-for="value in per">{{value}}</p>
-<hr>
-<p v-for="(value,key) in per">{{value}}----{{key}}</p>
-<hr>
 <p v-for="(value,key,i) in per">{{value}}----{{key}}--{{i}}</p>
 </div>
 <script src="./vue.js"></script>
 <script>
 new Vue({
     el: '#app',
-    data: {
-        per: {
-           name: '老王',
-            age: 38,
-            gender: '男'
-        }
-    }
+    data: {per: {name: '老王',age: 38,gender: '男'}}
 })
 ```
 
@@ -497,13 +478,9 @@ changeInput(event) {
 <input type="checkbox" v-model="nameCheckbox" />您是否成年？
 <p>{{ nameCheckboxs }}</p>
 <input type="checkbox" value="bj" v-model="nameCheckboxs" />北京
-<input value="tj" type="checkbox" v-model="nameCheckboxs" />天津
-<input value="sh" type="checkbox" v-model="nameCheckboxs" />上海
 <p>{{ nameSelect }}</p>
 <select name="" id="" v-model="nameSelect">
 	<option value="北京">北京</option>
-	<option value="上海">上海</option>
-	<option value="天津">天津</option>
 </select>
 </div>
 <script src="./vue.js"></script>
@@ -511,11 +488,7 @@ changeInput(event) {
 var vm = new Vue({
 	el: "#app",
 	data: {
-		nameCheckbox: true,
-		nameCheckboxs: [],
-		nameSelect: "上海"
-	},
-	methods: {}
+		nameCheckbox: true,nameCheckboxs: [],nameSelect: "上海"},
 });
 </script>
 ```
@@ -558,6 +531,34 @@ this.$refs.myInput.focus();
 }  // 获取dom对象 聚焦
 ```
 
+##### 在 CSS过渡和动画中自动应用class
+
+- Vue 提供`transition`的封装组件，在元素更新、移除、新增情形中，可以给任何元素和组件添加进入/离开过渡。
+- 用法：我们需要动画的标签外面嵌套`transition`标签 ,并且设置name属性。
+
+![1563292771195](images/1563292771195.png)
+
+> class状态 
+>
+> 1. v-enter：定义进入过渡的开始状态。
+> 2. v-enter-active：定义进入过渡生效时的状态。
+> 3. v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。
+> 4. v-leave: 定义离开过渡的开始状态。
+> 5. v-leave-active：定义离开过渡生效时的状态。
+> 6. v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。
+> 7.  注意：v要替换成transition组件的name属性值；先要编写元素的最终展示样式。
+
+```js
+<transition name="test">
+	<div v-if="show">动态显示的内容</div>
+</transition>
+<style>
+.test-enter{opacity: 0;}	
+.teste-enter-active{transition: all 1s;}
+.test-enter-to{opacity: 1;}
+</style>
+```
+
 ### 自定义指令
 
 - 使用场景：需要对普通 DOM 元素进行操作，这时候就会用到自定义指令。
@@ -595,6 +596,167 @@ dom.focus();
 }
 }
 } // 局部自定义指令实现
+```
+
+### 组件
+
+**介绍**
+
+- 组件特点：组件是一个**特殊的Vue实例**；
+- vue实例有`el`选项，组件实例没有el但是`templete`页面结构；
+- template 代表其页面结构 (`有且只要一个根元素`)；
+- 每个组件都是`独立`的 运行作用域  `数据、逻辑没有任何关联`；
+- 组件中data是个函数：data () {  return {  数据属性 } }；
+- 注意：
+  - 值得注意的是data和Vue实例的区别为 组件中data为一个函数，没有el选项；
+  - template必须有且只有一个根元素；
+  - data中必须为一个返回对象的函数；
+
+```jsx
+//全局组件使用方法:
+Vue.component("content-a", {
+        template: `<div>
+        {{count}}
+        </div>`,
+        data() {
+          return {
+            count: 1
+          };
+        }
+      });
+
+//局部组件
+new Vue({
+el: "#app",
+components:{
+ "content-a": {
+		template: `<div>{{count}}</div>`,
+ data() {
+   return {
+     count: 1
+   };
+ }
+}
+})
+```
+
+#### 组件嵌套
+
+- 我们在Vue实例中使用自定义组件，也可以在注册自定义组件时，嵌套另一个自定义组件，也就是父子组件的关系。
+
+```js
+var comA = {
+template: `<div>我是子组件</div>`
+};
+var parentA = {
+template: `<div>
+我是父组件
+<com-a></com-a>
+</div>`,
+components: {'com-a': comA }
+};
+var vm = new Vue({
+el: "#app",
+data: {},
+methods: {},
+components: {
+'parent-a":parentA
+}
+});
+```
+
+**组件通信情况**
+
+- 父传子：父组件可以将数据传给子组件 ；
+- 子传父：子组件也可以传数据给父组件；
+- 兄弟组件1传兄弟组件2 ；
+
+##### 父传子（Props）
+
+- props作用: 接收父组件传递的数据。
+- props就是父组件给子组件标签上定义的属性。
+
+```js
+1. props是组件的选项  定义接收属性；
+2. props的值可以是字符串数组 props:["list"]；
+3. props数组里面的元素称之为prop(属性) 属性=?值；
+4. prop的值来源于外部的(组件的外部)；
+5. prop(我们这里是lists)是组件的属性->自定义标签的属性；
+6. prop的赋值位置(在使用组件时,通过标签属性去赋值)；
+7. prop的用法和data中的数据用法一样；
+```
+
+- 注意：
+
+  - 在子组件中声明接收的属性；
+
+  - 父组件传递给子组件的数据是`只读`的,即`只可以用,不可以改`；
+  - 用props完成父组件给子组件传值，传值的属性都是定义在子组件的标签上，可以采用v-bind的形式传递动态值。
+
+```js
+//案例：在父组件中将 ["北京", "上海","天津"] 传递给子组件
+<div id="app">
+	<city :list="list"></city>
+</div>
+<script src="./vue.js"></script>
+<script>
+	Vue.component("city", {
+		template: `<div><p v-for="item in list">{{item}}</p></div>`,
+        props: ["list"]
+	});
+	var vm = new Vue({
+        el: "#app",
+        data: {list: ["北京", "上海", "天津"]},
+        methods: {}
+    });
+</script>
+```
+
+##### 子传父（$emit）（需要补充）
+
+- 子组件给父组件传值: 可通过在子组件中触发`$emit`事件，然后在当前组件实例中监视此事件进行追踪。
+- **$emit是在当前组件实例抛出一个事件，监听谁的实例事件,就写在谁的标签上。**
+- 注意：
+  - $emit触发的事件只能在当前实例监听，因为是在当前实例触发的。
+  - 如果props有驼峰命名的情况赋值时，需要拆成分割的形式否则无法传递。
+
+```js
+案例：
+<script>
+      // v-bind绑定class对象语法
+	var obj = {
+        template: `<li :class="{select:selectClass}" @click="transData" >{{cityname}}</li>`,
+        props: ["cityname", "currentname"],
+        methods: {
+          transData() {
+            //   data/methods/computed/props都代理给了Vue实例 this
+            console.log(this.cityname);
+            this.$emit("selectcity", this.cityname);
+          }
+        },
+        computed: {
+          selectClass() {
+            //   必须有返回值
+            return this.cityname === this.currentname; // 如果相等 就意味着当前点击项 和循环项相等返回true 否则返回false
+          }
+        }
+      };
+	var vm = new Vue({
+        el: "#app",
+        data: {
+          list: ["北京", "上海", "天津"],
+          currentCity: null // 当前点击的城市
+        },
+		methods: {
+          receiveData(cityname) {
+            this.currentCity = cityname;
+          }
+        },
+        components: {
+          "city-li": obj
+        }
+      });
+    </script>
 ```
 
 ### 过滤器
@@ -703,6 +865,23 @@ axios({
 }).then(reslut =>{})	//请求成功会来res响应体
 ```
 
+##### axios统一导入
+
+- 在入口main.js文件中引入axios,并给全局Vue对象的原型链赋值。
+
+```js
+Vue.prototype.$http = Axios; //所有的实例都直接共享拥有了 这个方法
+this.$http.post("http://localhost:3000/heroes", this.formData)
+```
+
+##### 设置baseUrl
+
+- axios中配置统一的请求路径头；给axios中的baseUrl设置常态值。
+
+```js
+Axios.defaults.baseURL = "http://localhost:3000"; // 设置共享的方法
+```
+
 #### json-server工具的使用
 
 - 目的：没有后端的支撑下，前端难以为继，json-server可以快速构建一个后台的接口服务，供前端调用；
@@ -733,3 +912,219 @@ json-server --watch db.json	//用来访问接口；
 | GET          | Read         | 取得一个资源                                       |
 | PUT          | Update       | 更新一个资源。或新增一个含 id 资源(如果 id 不存在) |
 | DELETE       | Delete       | 删除一个资源                                       |
+
+### 单页应用 SPA
+
+- single page application => 单页应用 =>Vue为单页应用而生。
+- 传统模式：每个页面及其内容都需要从服务器`一次次请求`如果网络差，体验则会感觉很慢。
+- SPA模式：`第一次加载`会将所有的资源都请求到页面，模块之间切换`不会再请求`服务器。
+
+**SPA优缺点**
+
+- 优点：
+  - 速度快切换模块不需要经过网络请求，用户体验好；因为前端操作几乎感受不到网络的延迟。
+  - 完全组件化开发，由于只有一个页面，所以原来属于单个页面的工作被归类为一个个组件。
+
+- 缺点：
+  - 首屏加载慢：解决方案：按需加载，不刷新页面之请求js模块。
+  - 不利于SEO：解决方案：服务端渲染。
+
+- SPA-实现原理：可以通过页面地址的锚链接来实现。
+
+### Router路由
+
+- Vue-Router是Vue.js官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌 。
+- Vue-Router实现根据不同的`请求地址` 而`显示不同的组件`。
+- 如果要使用 vue开发项目，`前端路由`功能`必须使用`，要用vue-router来实现。
+
+#### Vue-router使用步骤
+
+1. 导入vue和vue-router。
+
+2. 设置HTML中的内容。
+
+   ```js
+   <!-- router-link 最终会被渲染成a标签，to指定路由的跳转地址 -->
+   <router-link to="/users">用户管理</router-link>
+   
+   <!-- 路由匹配到的组件将渲染在这里 -->
+   <router-view></router-view>
+   ```
+
+3. 创建组件。
+
+   ```js
+   // 创建组件
+   // 组件也可以放到单独的js文件中
+   var Users = {
+     template: '<div>这是用户管理内容</div>'
+   };
+   ```
+
+4. 实例化路由对象，配置路由规则。
+
+   ```js
+   // 配置路由规则
+   var router = new VueRouter({
+   routes: [{ name: 'home', path: '/', component: Home },]
+   });
+   ```
+
+5. vue实例挂载router实例。
+
+   ```js
+   var vm = new Vue({
+   el: '#app',
+   router
+   });
+   ```
+
+#### router-view
+
+- router-view组件是一个 functional 组件，渲染路径匹配到的视图组件。
+- router-view渲染的组件还可以内嵌自己的 router-view，根据嵌套路径，渲染嵌套组件。
+
+#### router-to属性赋值
+
+- to有多种赋值方式。
+
+```js
+<!-- 常规跳转 -->
+<!-- <router-link to="/sport">体育</router-link> -->
+<!-- 变量 -->
+<!-- <router-link :to="path">体育</router-link> -->
+<!-- 根据对象name跳转 -->
+<!-- <router-link :to="{name:'abcdefg'}">体育</router-link> -->
+<!-- 根据对象path跳转 -->
+<!-- <router-link :to="{path:'/sport'}">体育</router-link> -->
+<!-- 带参数的跳转 -->
+<router-link :to="{name:'abcdefg',params:{a:1}}">体育</router-link>
+```
+
+#### 动态路由
+
+- 使用场景：点击`列表页跳转到详情页`时，跳转的链接需要`携带参数`，会导致页面path不同；当`页面path不同`却需要对应`同一个组件`时,需要用到`动态路由`这一概念。
+
+##### 实现步骤
+
+1. 路由规则中增加参数，在path最后增加参数。
+
+   ```js
+   注意这里的id相当于我们给路由加了参数：叫做：id
+   { name: 'users', path: '/users/:id', component: Users },
+   ```
+
+2. 通过router-link传参，在路径上传入具体的值(实参)。
+
+   ```js
+   <router-link to="/users/120">用户管理</router-link>
+   ```
+
+3. 在组件内部可以使用，`this.$route`获取当前路由对象，并通过`params`获取定义的参数。
+
+   ```js
+   var Users = {
+   template: '<div>这是用户管理内容 {{ $route.params.id }}</div>',
+   mounted() {
+   console.log(this.$route.params.id);
+   }};
+   ```
+
+#### router重定向
+
+- 场景: 当希望某个页面被强制中转时，可采用redirect 进行路由重定向设置。
+
+- **重定向拦截谁就在谁的路由中写redirect**。
+- 你希望它去哪就写谁的地址 path。
+
+```js
+{
+path: "/",
+redirect: "/home" // 默认时候强制跳转home页面
+}
+```
+
+#### router编程式导航
+
+- 跳转不同的组件,不仅仅可以用router-link还可以采用`代码行为`。
+- **this.$router可以拿到当前路由对象的实例**。
+
+##### this.$router与this.route的区别
+
+- **this.$router：表示全局路由器对象，项目中通过router路由参数注入路由之后，在任何一个页面都可以通过此方法获取到路由器对象，并调用其push()、go()等方法**；
+- **this.$route：表示当前正在用于跳转的路由器对象，可以调用其name、path、query、params等方法**；
+
+##### **路由对象的实例方法: push replace go()** 
+
+- **push：相当于往历史记录里推了一条记录，如果点击返回会回到上一次的地址，相当于 to属性**。
+- **replace：相当于替换了当前的记录，历史记录并没有多但是地址会变**。
+  - **同样是跳转到指定的url，但是这个方法不会向history里面添加新的记录，点击返回，会跳转到上上一个页面**。
+- **go(数字)：代表希望是前进还是回退，当数字大于0时就是前进n(数字)次，小于0时，就是后退n(数字)次**。
+
+```js
+goHome() {
+	this.$router.push("/home");			 // 跳转到home页面(简写);
+	this.$router.push({path: "/home"});	//等价于  to="{path:'/home'}";
+     this.$router.go(-3); // 回退3步
+}
+```
+
+#### route路由对象属性
+
+##### $route.path
+
+- 字符串，对应当前路由的路径，总是解析为绝对路径，如 `"/foo/bar"`。
+
+##### $route.params
+
+- 一个key/value 对象，包含了动态片段和全匹配片段，如果没有路由参数，就是一个空对象。
+
+##### $route.query
+
+- 一个key/value对象，表示URL查询参数。例如（对于路径 `/foo?user=1`，则有 `$route.query.user == 1`，如果没有查询参数，则是个空对象）
+
+##### $route.hash
+
+- 当前路由的hash值 (带 #) ，如果没有hash值，则为空字符串。
+
+#### routerlink-tag渲染标签
+
+- 作用：有时候需要`<router-link>`渲染成某种标签，于是我们使用 `tag`。
+- 默认值: `"a"`；同样它还会会监听点击，触发导航。
+
+```js
+<router-link to="/home" tag="li">foo</router-link>
+```
+
+#### active-class
+
+- 默认值: `"router-link-active"`
+
+- 设置链接激活时使用的 CSS 类名。默认值可以通过路由的构造选项 `linkActiveClass` 来全局配置。
+
+- ```js
+  <style>
+  .router-link-active {
+  	color: red;
+  }		//当切换router-link是会给当前的标签添加active属性
+  </style>
+  ```
+
+### router嵌套路由
+
+- 场景：存在组件嵌套情况下，我们需要提供多个视图容器router-view。
+- router-link和router-view都可以添加类名、设定样式。
+- **注意：以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径**。
+
+```js
+routes: [{
+	path: "/heroes",
+	component: appContainer,				//我们需要一个空的容器来放二级路由
+	children: [
+		{path: "",component: appList },		//注意：子路由默认页面用引号就可以，不需要/
+        {path: "add",component: appAdd }
+    ]
+}]
+```
+
+### Vue的插槽
