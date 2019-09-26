@@ -798,7 +798,6 @@ return value.charAt(0).toUpperCase() + value.substr(1);
   1. 在vue实例对象的选项中配置过滤器filters:{}；
   2. (key)过滤器的名字：(value)(要过滤的数据)=>{return 过滤的结果}；
   3. 在视图中使用过滤器：{{被过滤的数据 | 过滤器的名字}}；
-
 - 注意：局部过滤器只能用在当前Vue实例视图上；过滤的数据必须return输出；
 
 ```js
@@ -862,7 +861,7 @@ axios({
     method:"" ,	//默认为get请求
     url:"",
     data:""
-}).then(reslut =>{})	//请求成功会来res响应体
+}).then(reslut =>{}).catch(error=>{})	//请求成功会来result响应体,失败会来error响应体;
 ```
 
 ##### axios统一导入
@@ -880,6 +879,79 @@ this.$http.post("http://localhost:3000/heroes", this.formData)
 
 ```js
 Axios.defaults.baseURL = "http://localhost:3000"; // 设置共享的方法
+```
+
+### axios拦截器
+
+#### token
+
+- token是一个用户自定义的任意字符串，目前开发中，token都是在服务端生成并且token的值会保存到服务器后台。只有服务器和客户端知道这个字符串。
+- token就成了两者之间的秘钥，它可以让服务器确认请求是来自客户端还是恶意的第三方。
+- token是在用户登录的时候产生的，在前台登录某一个系统并且获得一个token之后，前台需要将该token设置在请求头上，以确保之后的每一次请求都是带着该`令牌`的。
+
+![1565191796203](D:/Document/GitHub/Notes/images/1565191796203.png)
+
+#### token验证的流程
+
+> 1. 客户端使用用户名跟密码请求登录
+> 2. 服务端收到请求，去验证用户名和密码（后台根据请求去数据库查找是否有该用户）
+> 3. 验证成功后，服务端会签发一个token(该token值一般都会存入Redis数据库中)，再把这个token发送给客户端
+> 4. 客户端收到token之后,(一般存储在localStorage中)
+> 5. 客户端每次向服务端请求资源的时候需要带着服务端签发的token
+> 6. 服务端收到请求，然后去验证客户端请求里面带着的token，如果验证成功，就向客户端返回请求的数据
+
+#### axios拦截 token验证
+
+axios的拦截器是一个作用非常大，非常好用的东西。分为请求拦截器和响应拦截器两种。
+
+##### 请求拦截器
+
+- 作用：在请求发送前进行一些操作。例如：在每个请求体里加上token统一做了处理。
+
+```js
+axios.interceptors.request.use(function (config) {
+  // 在发送请求之前做些业务处理，例如加入token
+  let token = window.localStorage.getItem('user-token') // 获取token
+  //config 的选项对象  axios默认选项
+  config.headers['Authorization'] = `Bearer ${token}`   //加入token
+    return config;
+  }, function (error) {
+    // 对请求错误做处理
+    return Promise.reject(error);
+  });
+```
+
+##### 响应拦截器
+
+- 作用：在接收到响应后进行一些操作。例如：对相应数据做处理或者在服务器返回登录状态失效，需要重新登录的时候，跳转到登录页。
+
+```js
+import { Message } from 'element-ui'	//再引用elementui下
+// 响应拦截 响应数据 回来 到达then方法之前
+axios.interceptors.response.use(function (response) {
+    // 对响应数据做处理，例如:对接收数据做处理、跳转到登录页
+	return response.data ? response.data : {}	
+    return response;
+  }, function (error) {
+    // 对响应错误做处理
+     let status = error.response.status
+  let message = '未知错误'
+  switch (status) {
+    case 401:
+      message = 'token过期或未出'
+      window.localStorage.clear() // 清空缓存
+      router.push('/login') // this.$router.push()
+      break
+    case 404:
+      message = '手机号不正确'
+      break
+    default:
+      break
+  }
+  Message({ message })
+  //希望 在异常处理函数中将所有的错误都处理完毕 不再进入catch  终止错误
+    return Promise.reject(error);// 终止当前的错误
+  });
 ```
 
 #### json-server工具的使用
@@ -904,14 +976,37 @@ Axios.defaults.baseURL = "http://localhost:3000"; // 设置共享的方法
 json-server --watch db.json	//用来访问接口；
 ```
 
-##### RESTFUL的接口规则
+### async和await新异步方案应用
 
-| **HTTP方法** | **数据处理** | **说明**                                           |
-| ------------ | ------------ | -------------------------------------------------- |
-| POST         | Create       | 新增一个没有id的资源                               |
-| GET          | Read         | 取得一个资源                                       |
-| PUT          | Update       | 更新一个资源。或新增一个含 id 资源(如果 id 不存在) |
-| DELETE       | Delete       | 删除一个资源                                       |
+- 作用：用于替代Promise链式调用；编程从异步变成同步。
+- async：它作为一个关键字放到函数前面，用于表示函数是一个函数函数，async就是异步的意思。异步函数也就意味着该函数的执行不会阻塞后面的代码。
+- await：await就是等待的意思。它后面可以放任何表达式，我们更多的是放一个promise对象的表达式。
+- 注意：await关键字只能放到async函数里面。否则会阻止后面的函数执行。
+- await后面的promise只有resolve了才会执行下 。如果想要捕获reject，要在await函数外面包一层 try/catch。
+
+```js
+//小案例：这里我们可以看到，写异步代码就像写同步代码一样，再也没有回调地狱。
+async function testResult() {
+    let first = await doubleAfter2seconds(30);
+    let second = await doubleAfter2seconds(50);
+    let third = await doubleAfter2seconds(30);
+    console.log(first + second + third);	//6秒后输出220
+}
+```
+
+```js
+//开发中：发送请求;
+//同步写法
+aysnc  getArticles(){
+	let result = await this.updateAxios() 
+}// 造成强制等待  
+// 异步写法
+getArticles(){
+	this.updateAxios().then(result => {
+		this.count = result
+	}) 
+}
+```
 
 ### 单页应用 SPA
 
@@ -1054,12 +1149,20 @@ redirect: "/home" // 默认时候强制跳转home页面
 - **this.$router：表示全局路由器对象，项目中通过router路由参数注入路由之后，在任何一个页面都可以通过此方法获取到路由器对象，并调用其push()、go()等方法**；
 - **this.$route：表示当前正在用于跳转的路由器对象，可以调用其name、path、query、params等方法**；
 
-##### **路由对象的实例方法: push replace go()** 
+##### router路由对象实例方法
 
-- **push：相当于往历史记录里推了一条记录，如果点击返回会回到上一次的地址，相当于 to属性**。
-- **replace：相当于替换了当前的记录，历史记录并没有多但是地址会变**。
-  - **同样是跳转到指定的url，但是这个方法不会向history里面添加新的记录，点击返回，会跳转到上上一个页面**。
-- **go(数字)：代表希望是前进还是回退，当数字大于0时就是前进n(数字)次，小于0时，就是后退n(数字)次**。
+###### push
+
+- push：相当于往历史记录里推了一条记录，如果点击返回会回到上一次的地址，相当于 to属性。
+
+###### replace
+
+- replace：相当于替换了当前的记录，历史记录并没有多但是地址会变。
+  - 同样是跳转到指定的url，但是这个方法不会向history里面添加新的记录，点击返回，会跳转到上上一个页面。
+
+###### go()
+
+- go(数字)：代表希望是前进还是回退，当数字大于0时就是前进n(数字)次，小于0时，就是后退n(数字)次。
 
 ```js
 goHome() {
@@ -1069,21 +1172,21 @@ goHome() {
 }
 ```
 
-#### route路由对象属性
+##### route路由对象属性
 
-##### $route.path
+###### $route.path
 
 - 字符串，对应当前路由的路径，总是解析为绝对路径，如 `"/foo/bar"`。
 
-##### $route.params
+###### $route.params
 
 - 一个key/value 对象，包含了动态片段和全匹配片段，如果没有路由参数，就是一个空对象。
 
-##### $route.query
+###### $route.query
 
 - 一个key/value对象，表示URL查询参数。例如（对于路径 `/foo?user=1`，则有 `$route.query.user == 1`，如果没有查询参数，则是个空对象）
 
-##### $route.hash
+###### $route.hash
 
 - 当前路由的hash值 (带 #) ，如果没有hash值，则为空字符串。
 
@@ -1110,7 +1213,7 @@ goHome() {
   </style>
   ```
 
-### router嵌套路由
+#### router嵌套路由
 
 - 场景：存在组件嵌套情况下，我们需要提供多个视图容器router-view。
 - router-link和router-view都可以添加类名、设定样式。
@@ -1127,4 +1230,162 @@ routes: [{
 }]
 ```
 
-### Vue的插槽
+#### router导航守卫
+
+- 含义：vue-router提供的导航守卫主要用来通过跳转或取消的方式守卫导航。
+- 有多种机会植入路由导航过程中：全局的, 单个路由独享的, 或者组件级的。
+- **参数或查询的改变并不会触发进入/离开的导航守卫**。
+- **注意：确保要调用 next 方法，否则钩子就不会被 resolved**。
+
+```js
+router.beforeEach((to, from, next) => {  })
+```
+
+> 参数
+>
+> **to: Route**: 即将要进入的目标路由对象。
+>
+> **from: Route**: 当前导航正要离开的路由。
+>
+> **next: Function**: 一定要调用该方法来 **resolve** 这个钩子。执行效果依赖 `next` 方法的调用参数。
+>
+> **next()**: 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 **confirmed** (确认的)。
+>
+> **next(false)**: 中断当前的导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到`from`路由对应的地址。
+>
+> **next('/') 或者 next({ path: '/' })**: 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 `next` 传递任意位置对象。
+
+```js
+// 全局前置守卫
+import router from './router'
+router.beforeEach(function (to, from, next) {
+  // 判断 拦截的范围
+  if (to.path.startsWith('/home')) {
+    // 进入到了拦截范围
+    // 判断是否登录 有token 就登录 没token就没登录
+    let token = window.localStorage.getItem('user-token') // 获取token
+    if (token) {
+      // 如果有token
+      next()
+    } else {
+      next('/login') // 没有token 就跳转到登录页
+    }
+  } else {
+    next() // 放行
+  }
+})
+// 先导出
+export default router
+```
+
+### Vue插槽
+
+- 插槽（Slot）是Vue提出来的一个概念，正如名字一样，插槽用于决定将所携带的内容，插入到指定的某个位置，从而使模板分块，具有模块化的特质和更大的重用性。
+- 插槽显不显示、怎样显示是由父组件来控制的，而插槽在哪里显示就由子组件来进行控制。
+
+#### 默认插槽（匿名插槽）
+
+- 作用： 保留组件中的所有原始标签内容，这种插槽被称为匿名插槽。用法：<slot></slot>
+- 直接在组件中写上slot标签对，就可以在根元素中的引用的组件中间显示所写的内容。
+- 我们可以在定义插槽时，在`slot(标签)`中写入`默认内容` 如果在传入插槽内容时，内容不为空,那么还会`按照之前的模式替换`，如果没传,那么`默认内容`就会自动出现`替换slot`的位置
+
+```js
+//父组件
+<template>
+  <div>我是父组件<slot><p style="color:red">我是父组件插槽内容</p></slot></div>
+</template>
+//子组件
+<template>
+  <div class="slot1">
+    <div>我是slotOne1组件</div>
+    <slot></slot>
+  </div>
+</template>
+```
+
+![1472147-20181112144105784-1098819459](images/1472147-20181112144105784-1098819459.png)
+
+#### 具名插槽
+
+- 凡是具有name属性的slot标签，就被称为具名插槽即<slot name=top>(在子组件中写，写的位置不同，在引用该模板的页面中显示的位置也会不一样)。
+
+- 作用：
+
+1. 在组件的原始内容的某个标签中，添加slot=top属性，指明该标签所对应的插槽的名称。
+
+2. 在组件模板中通过调用slot标签，并设置name=top属性，会自动将对应的标签内容添加至当前slot标签所在的位置。
+
+```js
+//子组件
+<child>
+    <span slot='after'>我是after的</span>
+    <span slot='before'>我是before的</span>
+</child>
+//父组件
+<div>
+    <slot name='before'></slot>>
+    <p>静态内容</p>
+    <slot name='after'></slot>
+</div>
+//注意:这里我们故意把顺序颠倒了，但是效果没有任何影响。说明具名插槽无关顺序。
+//具名插槽同样支持备用内容,不传入插槽内容则显示插槽内部的内容。
+```
+
+#### 作用域插槽
+
+- 作用域插槽:将组件模板中的数据传递给组件的原始内容。
+- 在slot开始标签中，添加要传递的数据，避开name属性（具名插槽）
+-  在原始内容中通过slot-scope属性（其值是自定义的）接受传递的数据，即slot-scope=varName(本质是个对象，存储传递的数据，即数据会自动转换成键值对，存储在这个对象里，所以属性名对应属性名，属性值对应属性值）
+
+```js
+//子组件
+<template>
+  <div>我是作用域插槽的子组件<slot :data="user"></slot></div>
+</template>
+<script>
+export default {
+  name: 'slotthree',
+  data () {
+    return {
+      user: [
+        {name: 'Jack', sex: 'boy'},
+        {name: 'Jone', sex: 'girl'},
+        {name: 'Tom', sex: 'boy'}
+      ]
+    }
+  }
+}
+</script>
+//父组件
+<template>
+  <div>我是作用域插槽<slot-three>
+      <template slot-scope="user">
+        <div v-for="item in user.data" :key="item.id">{{item}}</div>
+      </template>
+    </slot-three>
+  </div>
+</template>
+```
+
+![1472147-20181112145113196-1793166190](images/1472147-20181112145113196-1793166190.png)
+
+### 请求模块的优化
+
+- 作用：解决所有请求都在组件中，所有的请求都抽离出去，形成一个单独的模块，组件只是调用。
+
+```js
+//第一步：新建组件，优化接口 以export  default  obj 输出对象
+export default {
+  API_ARTICLES: '/articles', // 相当于定义了一个常量
+  API_CHANNELS: '/channels'
+}
+//第二步：引入组件 以对象方式引入import obj  from '路径'
+import { getArticles } from '../../api/articles'	
+export function getArticles (params) {
+  return axios({
+    url: API.API_ARTICLES,
+    params
+  })
+}
+```
+
