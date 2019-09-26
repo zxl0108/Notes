@@ -737,7 +737,7 @@ components: {
         computed: {
           selectClass() {
             //   必须有返回值
-            return this.cityname === this.currentname; // 如果相等 就意味着当前点击项 和循环项相等返回true 否则返回false
+            return this.cityname === this.currentname; //如果相等,就意味着当前点击项和循环项相等返回true,返回false
           }
         }
       };
@@ -889,7 +889,7 @@ Axios.defaults.baseURL = "http://localhost:3000"; // 设置共享的方法
 - token就成了两者之间的秘钥，它可以让服务器确认请求是来自客户端还是恶意的第三方。
 - token是在用户登录的时候产生的，在前台登录某一个系统并且获得一个token之后，前台需要将该token设置在请求头上，以确保之后的每一次请求都是带着该`令牌`的。
 
-![1565191796203](D:/Document/GitHub/Notes/images/1565191796203.png)
+![1565191796203](images/1565191796203.png)
 
 #### token验证的流程
 
