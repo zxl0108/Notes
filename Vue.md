@@ -856,12 +856,19 @@ axios.get(url).then((res) => {
 }).catch((err) => {
 // 请求失败会来到这处理err对象
 })	
-//第二种写法:
+//第二种写法:  用来解决回调地狱
 axios({
     method:"" ,	//默认为get请求
     url:"",
     data:""
 }).then(reslut =>{}).catch(error=>{})	//请求成功会来result响应体,失败会来error响应体;
+//第三种写法: 用于替代Promise链式调用   -----下面中有介绍
+async function(){
+  let result = await axios({
+       url:"",
+   })
+   this.list=result.data 
+}
 ```
 
 ##### axios统一导入
@@ -954,28 +961,6 @@ axios.interceptors.response.use(function (response) {
   });
 ```
 
-#### json-server工具的使用
-
-- 目的：没有后端的支撑下，前端难以为继，json-server可以快速构建一个后台的接口服务，供前端调用；
-- json-server是一个命令行工具可以json文件变成接口文件；
-- json-server遵循`restful`接口规则；
-- 安装：npm i -g  json-server // 也可以采用yarn 和 cnpm；
-
-```js
-新建一个json文件 db.json,并在相对目录下运行命令行命令
-{
-// brands 相等于 我们数据库中的一个表
-"brands": [
-{
-"name": "苹果",
-"date": "2018-05-30T08:07:20.089Z",
-"id": 1
-}
-],
-}
-json-server --watch db.json	//用来访问接口；
-```
-
 ### async和await新异步方案应用
 
 - 作用：用于替代Promise链式调用；编程从异步变成同步。
@@ -1006,6 +991,28 @@ getArticles(){
 		this.count = result
 	}) 
 }
+```
+
+#### json-server工具的使用
+
+- 目的：没有后端的支撑下，前端难以为继，json-server可以快速构建一个后台的接口服务，供前端调用；
+- json-server是一个命令行工具可以json文件变成接口文件；
+- json-server遵循`restful`接口规则；
+- 安装：npm i -g  json-server // 也可以采用yarn 和 cnpm；
+
+```
+新建一个json文件 db.json,并在相对目录下运行命令行命令
+{
+// brands 相等于 我们数据库中的一个表
+"brands": [
+{
+"name": "苹果",
+"date": "2018-05-30T08:07:20.089Z",
+"id": 1
+}
+],
+}
+json-server --watch db.json	//用来访问接口；
 ```
 
 ### 单页应用 SPA
@@ -1054,6 +1061,7 @@ getArticles(){
    var Users = {
      template: '<div>这是用户管理内容</div>'
    };
+   //注意:项目开发中,需要使用全局注册Vue.use(Vuerouter)
    ```
 
 4. 实例化路由对象，配置路由规则。
