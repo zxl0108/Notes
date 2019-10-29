@@ -1,4 +1,4 @@
-Vue笔记
+## Vue笔记
 
 ### Vue的特点
 
@@ -345,7 +345,7 @@ new Vue({
 
 - 作用：绑定标签上的任何属性；
 - 场景：当标签上的属性是变量/动态/需要改变的；
-- 语法：<p :属性="数据对象中的属性名"></p>；
+- 语法：<标签 :属性="数据对象中的属性名"></标签>；
 
 ```html
 <p v-bind:id="ID"></p>   // ID为数据对象中的变量值;
@@ -1134,28 +1134,6 @@ getArticles(){
 }
 ```
 
-#### json-server工具的使用
-
-- 目的：没有后端的支撑下，前端难以为继，json-server可以快速构建一个后台的接口服务，供前端调用；
-- json-server是一个命令行工具可以json文件变成接口文件；
-- json-server遵循`restful`接口规则；
-- 安装：npm i -g  json-server // 也可以采用yarn 和 cnpm；
-
-```
-新建一个json文件 db.json,并在相对目录下运行命令行命令
-{
-// brands 相等于 我们数据库中的一个表
-"brands": [
-{
-"name": "苹果",
-"date": "2018-05-30T08:07:20.089Z",
-"id": 1
-}
-],
-}
-json-server --watch db.json	//用来访问接口；
-```
-
 ### 单页应用 SPA
 
 - single page application => 单页应用 =>Vue为单页应用而生。
@@ -1517,3 +1495,26 @@ export default {
 ```
 
 ![1472147-20181112145113196-1793166190](images/1472147-20181112145113196-1793166190.png)
+
+#### json-server工具的使用
+
+- 目的：没有后端的支撑下，前端难以为继，json-server可以快速构建一个后台的接口服务，供前端调用；
+- json-server是一个命令行工具可以json文件变成接口文件；
+- json-server遵循`restful`接口规则；
+- 安装：npm i -g  json-server // 也可以采用yarn 和 cnpm；
+
+```js
+新建一个json文件 db.json,并在相对目录下运行命令行命令
+{
+// brands 相等于 我们数据库中的一个表
+"brands": [
+{
+"name": "苹果",
+"date": "2018-05-30T08:07:20.089Z",
+"id": 1
+}
+],
+}
+json-server --watch db.json	//用来访问接口；
+```
+
