@@ -113,7 +113,7 @@ document.getElementById('btn').onclick = function () {
 </script>
 ```
 
-完整的 Ajax 的 POST 请求示例：**![img](images/1399348-20180802145000260-118821620.png)
+完整的 Ajax 的 POST 请求示例：![img](images/1399348-20180802145000260-118821620.png)
 
 **案例-验证用户名**
 

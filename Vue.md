@@ -1,12 +1,8 @@
-# Vue笔记
-
-## Vue基础
-
-Vue的认识
-
-- Vue是一个优秀的**前端框架**，开发者按照Vue的规范进行开发。
+Vue笔记
 
 ### Vue的特点
+
+Vue是一个优秀的**前端框架**，开发者按照Vue的规范进行开发。
 
 - 数据驱动**视图**可以让我们只关注数据，完全解耦：数据和视图  =>响应式数据 => 数据变化 =>视图一定变化。
 - **MVVM** 双向绑定  => v-model => 数据变化 => 视图变化   视图变化 => 数据变化 ；
@@ -274,43 +270,12 @@ new Vue({
   - 显示传参：当写方法名()，如果想要获取event,必须显示的用$event传到方法里；
 
 ```js
-<div id="app">
 <!-- v-on:xx事件名='当触发xx事件时执行的语句' -->
-<!-- 执行一段js语句:可以使用data中的属性 -->
-<button v-on:click="count += 1">增加 1</button>
+<button v-on:click="count">增加</button>
 <!-- v-on的简写方法 -->
-<button @click="count += 1">增加 1</button>
-<!-- 执行一个方法 -->
-<button @click="add">增加 1</button>
-<!-- 执行一个方法、这种写法可以传形参 -->
-<button @click="fn1(count)">执行fn1方法</button>
-<!-- 执行一个方法、这种写法可以传形参,特殊的形参$event -->
-<button @click="fn1($event)">执行fn1方法</button>
-<hr>
+<button @click="count">增加</button>
 <!-- v-on修饰符 如 once: 只执行一次 -->
 <button @click.once="fn1">只执行一次</button>
-
-<p>上面的按钮被点击了 {{ count }} 次。</p>
-</div>
-<script src="./vue.js"></script>
-<script>
-new Vue({
-  el: '#app',
-  data: {
-      count: 0,
-      items: ['a', 'b', 'c']
-  },
-  methods: {
-      add: function() {
-          this.count += 1;
-      },
-      fn1: function(count) {
-          console.log(count);
-          console.log('fn1方法被执行');
-      }
-  }
-});
-</script>
 ```
 
 ##### v-for（循环数组与对象）
@@ -612,7 +577,7 @@ dom.focus();
   - template必须有且只有一个根元素；
   - data中必须为一个返回对象的函数；
 
-```jsx
+```js
 //全局组件使用方法:
 Vue.component("content-a", {
         template: `<div>
@@ -644,7 +609,7 @@ components:{
 
 - 我们在Vue实例中使用自定义组件，也可以在注册自定义组件时，嵌套另一个自定义组件，也就是父子组件的关系。
 
-```js
+```html
 var comA = {
 template: `<div>我是子组件</div>`
 };
@@ -665,23 +630,23 @@ components: {
 });
 ```
 
-**组件通信情况**
+### 组件通信
 
 - 父传子：父组件可以将数据传给子组件 ；
 - 子传父：子组件也可以传数据给父组件；
 - 兄弟组件1传兄弟组件2 ；
 
-##### 父传子（Props）
+#### 父传子（Props）
 
 - props作用: 接收父组件传递的数据。
-- props就是父组件给子组件标签上定义的属性。
+- props就是父组件给子组件标签上定义的属性。props写在要接受数据的子组件中。
 
 ```js
 1. props是组件的选项  定义接收属性；
 2. props的值可以是字符串数组 props:["list"]；
 3. props数组里面的元素称之为prop(属性) 属性=?值；
 4. prop的值来源于外部的(组件的外部)；
-5. prop(我们这里是lists)是组件的属性->自定义标签的属性；
+5. prop(我们这里是list)是组件的属性->自定义标签的属性；
 6. prop的赋值位置(在使用组件时,通过标签属性去赋值)；
 7. prop的用法和data中的数据用法一样；
 ```
@@ -693,70 +658,246 @@ components: {
   - 父组件传递给子组件的数据是`只读`的,即`只可以用,不可以改`；
   - 用props完成父组件给子组件传值，传值的属性都是定义在子组件的标签上，可以采用v-bind的形式传递动态值。
 
-```js
-//案例：在父组件中将 ["北京", "上海","天津"] 传递给子组件
-<div id="app">
-	<city :list="list"></city>
-</div>
-<script src="./vue.js"></script>
+```html
+父组件：
+<template>
+    <parent>
+      <child :parentToChild="value"></child>		//以v-bind方式向子组件传递数据
+    </parent>
+</template>
 <script>
-	Vue.component("city", {
-		template: `<div><p v-for="item in list">{{item}}</p></div>`,
-        props: ["list"]
-	});
-	var vm = new Vue({
-        el: "#app",
-        data: {list: ["北京", "上海", "天津"]},
-        methods: {}
-    });
+export default {
+  data () {
+    return {
+      value:'父组件的值传给子组件'
+    }
+  }
+}
+</script>
+
+子组件：
+<template>
+  <div>
+    <p>这是子组件</p>
+  </div>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      valueFromParent:'',
+    }
+  },
+  props: ['parentToChild'],		//接收父组件传递的数据
+  created(){
+    this.valueFromParent = this.parentToChild
+  }
+}
 </script>
 ```
 
-##### 子传父（$emit）（需要补充）
+#### 子传父（$emit）
 
 - 子组件给父组件传值: 可通过在子组件中触发`$emit`事件，然后在当前组件实例中监视此事件进行追踪。
 - **$emit是在当前组件实例抛出一个事件，监听谁的实例事件,就写在谁的标签上。**
 - 注意：
   - $emit触发的事件只能在当前实例监听，因为是在当前实例触发的。
   - 如果props有驼峰命名的情况赋值时，需要拆成分割的形式否则无法传递。
+  - $emit写在要给父组件传数据的子组件方法中`this.$emit('方法名字',传递的数据)`
+
+```html
+子组件：
+<template>
+  <div>
+    <p>这是子组件</p>
+    <button @click="clickEvent">点击按钮</button>
+  </div>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      value1:'这是要传给父组件的值',
+      value2:'可以传多个值'
+    }
+  },
+  methods: {
+    clickEvent(){
+      this.$emit('sendValueToParent',this.value1,this.value2);		//子组件传值要以$emit传递
+    }
+  }
+}
+</script>
+
+父组件：
+<template>
+  <div>
+    <p>这是父组件</p>
+    <parent>
+      <child @sendValueToParent = "getValueFromChild"></child>		<-->父组件接收要以v-on：接收</-->
+    </parent>
+  </div>
+</template>
+<script>
+export default {
+  methods: {
+    getValueFromChild(value1,value2){
+      //打印值分别是
+      //value1: 这是要传给父组件的值
+      //value2: 可以传多个值
+    }
+  }
+}
+```
+
+#### 非父子（EventBus）
+
+##### 介绍
+
+- EventBus 又称为事件总线。在Vue中可以使用EventBus来作为沟通桥梁的概念，就像是所有组件共用相同的事件中心，可以向该中心注册发送事件或接收事件，所以组件都可以上下平行地通知其他组件。
+
+##### 使用方法
+
+- 第一步：创建事件总线并将其导出，以便其它模块可以使用或者监听它。
+
+```js
+第一种方法：新创建一个 .js 文件，比如 event-bus.js  使用时务必先引用;
+import Vue from 'vue'			
+export const EventBus= new Vue()
+第二种方法：可以直接在项目中的 main.js 初始化 EventBus
+Vue.prototype.$EventBus = new Vue()			
+```
+
+- 第二步：`$on`注册/监听自定义事件
+
+```js
+EventBus.$on('自定义事件名称', () => {
+  // 执行操作
+})
+```
+
+- 第三步：`$emit`发布调用自定义事件处理函数
+
+```js
+EventBus.$emit('自定义事件名称'[, 可选参数])		//[]为可选参数;
+```
 
 ```js
 案例：
+组件a.vue:
 <script>
-      // v-bind绑定class对象语法
-	var obj = {
-        template: `<li :class="{select:selectClass}" @click="transData" >{{cityname}}</li>`,
-        props: ["cityname", "currentname"],
-        methods: {
-          transData() {
-            //   data/methods/computed/props都代理给了Vue实例 this
-            console.log(this.cityname);
-            this.$emit("selectcity", this.cityname);
-          }
-        },
-        computed: {
-          selectClass() {
-            //   必须有返回值
-            return this.cityname === this.currentname; //如果相等,就意味着当前点击项和循环项相等返回true,返回false
-          }
-        }
-      };
-	var vm = new Vue({
-        el: "#app",
-        data: {
-          list: ["北京", "上海", "天津"],
-          currentCity: null // 当前点击的城市
-        },
-		methods: {
-          receiveData(cityname) {
-            this.currentCity = cityname;
-          }
-        },
-        components: {
-          "city-li": obj
-        }
-      });
-    </script>
+import eventBus from 'event-bus.js'
+export default {
+  created () {
+    eventBus.$on('事件名称', (参数) => {			    
+    // 注册订阅
+    })
+  }
+}
+</script>
+
+组件b.vue：
+<template>
+  <div>
+    <button @click="onEmit">发布</button>
+  </div>
+</template>
+
+<script>
+import eventBus from 'event-bus.js'
+export default {
+  methods: {
+    onEmit () {
+      eventBus.$emit('事件名称'[, 可选参数])			// 发布
+    }
+  }
+}
+</script>
+```
+
+#### Vuex状态管理库
+
+- Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式**。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。
+
+同步操作：
+
+![1566202914280](images/1566202914280.png)
+
+异步操作：
+
+![1566203230907](images/1566203230907.png)
+
+##### 需求
+
+- 多个视图依赖于同一状态。
+- 来自不同视图的行为需要变更同一状态。
+- **注意**：Vuex 不要滥用，不符合以上需求的业务不要使用，反而会让你的应用变得更麻烦。常用场景：购物车。
+
+##### 使用方法
+
+- 第一步：安装Vuex（npm、yarn安装、引用）；
+- 第二步：配置Vuex；
+
+```js
+1、在项目中新建 `store/index.js` 并写入以下内容：
+Vuex 容器核心文件
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+// 初始化 Vuex 容器
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+ mutations: {    
+     // 定义了一个 mutation 函数
+    add (state) {
+     state.count++
+    },
+})
+
+// 导出容器
+export default store
+```
+
+第三步：
+
+访问数据
+
+- 在 JavaScript 中调用 `this.$store.state.count` 访问；
+- 在模板中直接 `$store.state.count` 访问；
+- 注意：
+  -   容器的 state 类似于组件中的 data；我们要做的就是把需要共享的数据放到 state 中就可以了；
+  - 容器中的数据不属于任何组件，全局共享的，任何组件都可以访问；
+  - 容器中的数据也是响应式的，数据改变也会驱动视图更新；
+
+修改数据
+
+- 在 JavaScript 中调用`this.$store.commit（'方法名字'，[参数(可选)]）`访问；模板调用省略this；
+
+- 注意：
+  - **修改容器的 state 务必使用 mutation 函数**，因为只有 mutation 函数中修改 state 数据才会和调试工具正常工作。
+  - mutation 函数的第1个参数默认是 state 对象，也可以自定义传递其它参数；
+  - 不要在 mutation 中执行异步操作修改 state，mutation 中只能是同步操作；如果需要执行异步操作，请使用 Action。
+
+Aciton（异步操作修改数据）
+
+- 在 JavaScript 中调用`$store.dispatch('action函数名称'[, 可选参数])`；
+- 注意：
+  - 也不要在 action 中直接修改 state，永远通过 mutation 来修改 state；
+  - action 函数的第1个参数是容器对象；action 也可以像 mutation 函数一样自定义传参；
+
+```js
+定义 action：
+actions: {
+  asyncAdd (context) {
+    // 执行异步操作
+    // 提交 mutation 修改 state
+    setTimeout(()=>{
+      context.commit('add',2)
+    },1000)
+  }
+}
 ```
 
 ### 过滤器
@@ -764,7 +905,7 @@ components: {
 #### 过滤器的文档分析
 
 - 场景：data中的数据格式(日期格式/货币格式/大小写等)需要数据时；
-- 使用位置：{{}}和v-bind="表达式 | 过滤器名称"；
+- 使用位置：{{插值表达式}}和v-bind="表达式 | 过滤器名称"；
 - 具体用法：{{msg | 过滤器名字}}；
 - 分类：本地(局部)和全局；所有实例均可使用 Vue局部 过滤器只有当前实例才可以使用；
 - 全局与局部区别：注册位置不同,应用范围不同；
@@ -1376,24 +1517,3 @@ export default {
 ```
 
 ![1472147-20181112145113196-1793166190](images/1472147-20181112145113196-1793166190.png)
-
-### 请求模块的优化
-
-- 作用：解决所有请求都在组件中，所有的请求都抽离出去，形成一个单独的模块，组件只是调用。
-
-```js
-//第一步：新建组件，优化接口 以export  default  obj 输出对象
-export default {
-  API_ARTICLES: '/articles', // 相当于定义了一个常量
-  API_CHANNELS: '/channels'
-}
-//第二步：引入组件 以对象方式引入import obj  from '路径'
-import { getArticles } from '../../api/articles'	
-export function getArticles (params) {
-  return axios({
-    url: API.API_ARTICLES,
-    params
-  })
-}
-```
-
