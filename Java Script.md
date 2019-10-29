@@ -363,6 +363,11 @@ console.log(res2);  //输出 -1；
 
 ### 4.遍历数组
 
+```
+迭代(遍历)方法：forEach()、map()、filter()、some()、every()；
+这些方法都是遍历数组的。
+```
+
 #### 1.forEach：遍历数组
 
 ```js
@@ -376,7 +381,7 @@ arr_1.forEach(function(item,index,arr){
 });
 ```
 
-#### 2.filter ：筛选数组
+#### 2.filter：筛选数组
 
 ​	筛选出数组中满足条件的数组，**返回是一个新的数组**；
 
@@ -389,6 +394,26 @@ var res = arr_1.filter(function(item,index,arr){
 });
 console.log(res);  // 输出[1500, 1800, 300, 800]；
 // fitler方法的的参数要求是函数，这个函数接收2个参数：item是数组中每个元素，index是item对应索引,arr代表当前数组
+```
+
+#### 3.some：检测数组是否满足指定条件
+
+​	用于检测数组中的元素是否满足指定条件，通俗点查找数组中是否有满足条件的元素;
+
+```js
+array.some(function(currentValue, index, arr)) 【注意：找到或者满足条件立刻停止】
+注意它返回值是布尔值, 如果查找到这个元素, 就返回true,如果查找不到就返回false;
+如果找到第一个满足条件的元素,则终止循环. 不在继续查找;
+```
+
+```js
+var arr = [100,200,300,400];
+var re = arr.some(function (elm,i,arr) {
+	// console.log(elm,i,arr);
+	console.log(i);
+	return elm >= 200;
+});
+console.log(re);
 ```
 
 ### 5.拼接与截取
@@ -1041,6 +1066,18 @@ var str = '我爱中华人民共和国';
 var res = str.substr(2,2);// 索引2开始，总共获取2个字符，第二个参数为个数
 ```
 
+#### 5.trim
+
+```
+str.trim()
+trim：删除字符串两侧的空白符;
+var str=' a b c ' ;			console.log( str.trim() );
+var str = ' abc def aaa bbb ';
+案例:将数组的每一项连接起来;
+var arr = str.split(' ');// split分割字符串，返回是一个数组;
+var newStr = arr.join('');// 把数组每一项连起来，返回一个字符串newStr;
+```
+
 
 
 # 9.内置对象
@@ -1435,78 +1472,6 @@ var obj = new Star();
 console.log(obj.__proto__);	//打印二者属性为一样；
 ```
 
-## ES5中新增方法
-
-```
-ES5 中给我们新增了一些方法，可以很方便的操作数组或者字符串，这些方法主要包括：数组方法;字符串方法;
-```
-
-### 数组方法
-
-```
-迭代(遍历)方法：forEach()、map()、filter()、some()、every()；
-这些方法都是遍历数组的。
-```
-
-#### forEach()--遍历数组
-
-```js
-array.forEach(function(currentValue, index, arr))
-currentValue：数组当前项的值；
-index：数组当前项的索引；
-arr：数组对象本身；
-```
-
-#### filter()--筛选数组
-
-```js
-array.filter(function(currentValue, index, arr))
-filter()方法创建一个新的数组,新数组中的元素是通过检查指定数组中符合条件的所有元素,主要用于筛选数组
-注意它直接返回一个新数组；
-```
-
-```js
-var arr = [1,6,23,99,77,66,89];
-var reArr = arr.filter(function (ele,i) {
-	return ele % 2 == 0;	// 筛选
-	});
-console.log(reArr);
-```
-
-#### some()--检测数组是否满足指定条件
-
-```js
-array.some(function(currentValue, index, arr)) 【注意：找到或者满足条件立刻停止】
-some() 方法用于检测数组中的元素是否满足指定条件. 通俗点查找数组中是否有满足条件的元素;
-注意它返回值是布尔值, 如果查找到这个元素, 就返回true,如果查找不到就返回false;
-如果找到第一个满足条件的元素,则终止循环. 不在继续查找;
-```
-
-```js
-var arr = [100,200,300,400];
-var re = arr.some(function (elm,i,arr) {
-	// console.log(elm,i,arr);
-	console.log(i);
-	return elm >= 200;
-});
-console.log(re);
-```
-
-#### 字符串方法
-
-```
-str.trim()
-trim：删除字符串两侧的空白符;
-```
-
-```
-var str=' a b c ' ;			console.log( str.trim() );
-var str = ' abc def aaa bbb ';
-案例:将数组的每一项连接起来;
-var arr = str.split(' ');// split分割字符串，返回是一个数组;
-var newStr = arr.join('');// 把数组每一项连起来，返回一个字符串newStr;
-```
-
 ## 严格模式
 
 - JS两种模式：1.正常模式；2.严格模式；
@@ -1677,8 +1642,6 @@ var data = [
 
 		console.log( fn(data, 1112) );
 ```
-
-
 
 ## 深拷贝和浅拷贝
 

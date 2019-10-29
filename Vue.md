@@ -210,7 +210,7 @@ count: newValue
 
 ##### v-text 和 v-html（更新内容）
 
-- 两个指令很像innerText和nnerHTML；
+- 两个指令很像innerText和innerHTML；
 - **v-text:更新标签中的内容；**
 - v-text与插值表达式区别：
   - v-text  更新**整个**标签中的内容；

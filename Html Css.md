@@ -53,7 +53,9 @@
 
 ### 5.文本格式化标签
 
-​	`b，I，s ，u `只有使用强调的意思,而`strong(加粗) em(倾斜) del(删除线) ins(下划线) `语义更加强烈；
+```html
+b,I,s,u,只有使用强调的意思,而`strong(加粗) em(倾斜) del(删除线) ins(下划线) `语义更加强烈；
+```
 
 ### 6.A标签的基本使用及属性
 
@@ -177,19 +179,19 @@ HTML中列表标签的分类
 #####   1.明文输入框（可以看见）
 
 ```html
-<input type="text">;	placeholder占位符(用于控制输入框文字属性)；
+<input type="text">;	placeholder占位符(用于控制输入框文字属性);
 ```
 
 #####   2.暗文输入框（看不见）
 
 ```html
-<input type="password">;
+<input type="password">
 ```
 
 #####   3.给输入框设置默认值
 
 ```html
-<input type="text" value="（想设置的默认值）">;（在input标签里加上value标签）；
+<input type="text" value="（想设置的默认值）">;（在input标签里加上value标签）;
 ```
 
 #####   4.单选框
@@ -381,7 +383,10 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 
 ##### 多背景图片
 
-- background:url(test1.jpg) no-repeat  10px 20px/50px 60px, url(test2.jpg) no-repeat  10px 20px/70px 90px;
+- ```css
+  background:url(test1.jpg) no-repeat  10px 20px/50px 60px, url(test2.jpg) no-repeat  10px 20px/70px 90px;
+  ```
+
 - 注意， 背景颜色只能设置一次，且由于写在前面的背景会叠在之后的背景之上，所以背景色通常都定义在最后一组上，避免背景色将图像盖住。
 
 ##### 精灵技术
@@ -590,7 +595,9 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 
 - 行内元素（内联元素）不占有独立的区域，仅仅靠自身的字体大小和图像尺寸来支撑结构，一般不可以设置宽度、高度、对齐等属性，常用于控制页面中文本的样式。
 
-> 常见的行内元素有<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>等，其中<span>标签最典型的行内元素。
+```
+常见的行内元素有<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>等,其中<span>标签最典型的行内元素
+```
 
 #### 特点
 
@@ -845,8 +852,10 @@ clearfix {*zoom: 1;}
 
 - 想要理想视口，我们需要给我们移动端页面添加meta视口标签；
 
-
-> 配置方式:<  meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-s cale=1.0" >
+```
+配置方式:<  meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,
+maximum-scale=1.0, minimum-s cale=1.0" >
+```
 
 ### 二倍图
 
