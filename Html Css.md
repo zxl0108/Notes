@@ -4,10 +4,10 @@
 
 ## 字符集的问题
 
+**meata标签的作用就是指定当前网页的字符集**
 
-​	**meata标签的作用就是指定当前网页的字符集**
+- 常用解决网页上的乱码的现象  在head标签中添加`<meta charset="GBK”"/>`
 
-​	常用解决网页上的乱码的现象  在head标签中添加<meta charset="GBK”"/>
 
 企业开发中我们因该使用GBK(GB2312)还是UTF-8呢？
 
@@ -24,10 +24,11 @@
 
 ## DTD文档声明
 
+- 
+  任何一个标准的HTML网页，第一行一定是DTD文档声明，也就是说DTD文档说明必须写在HTML的第一行，且不区分大小写。
 
-​	任何一个标准的HTML网页，第一行一定是DTD文档声明，也就是说DTD文档说明必须写在HTML的第一行，且不区分大小写。
 
-​	第一行必须要有DTD文字声明<!DTDCTYPE html>；
+第一行必须要有DTD文字声明<!DTDCTYPE html>；
 
 ## 1.基本标签
 
@@ -359,7 +360,7 @@ CSS样式三种:行内式（内联样式）；内部样式表（内嵌样式表�
 
 ##### 背景位置:background-position
 
-- 1.length(百分数)；2.top , center , ,left , center ,right(方位名词)；
+- 1.length(百分数)；2.top、center、left、center、right(方位名词)；
 
 ##### 背景固定滚动:background-attachment
 
