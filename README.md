@@ -8,7 +8,7 @@ EScript6笔记
 
 JQuery笔记
 
-Ajax笔记
+Ajax笔记https://github.com/zxl0108/Notes/blob/master/Ajax.md
 
 Git笔记
 
