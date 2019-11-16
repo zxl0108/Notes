@@ -174,12 +174,16 @@ document.getElementById('btn').onclick = function () {
 - 服务器发送的每一个响应也都带有首部信息。三位数的状态码是服务器发送的响应中最重要的首部信息，并且属于超文本传输协议中的一部分。
 
 - 常用状态码及其含义：
-  - 404 没找到页面(not found)；
+  
+  - 400请求出错；
+  - 401未授权：登录失败；
   - 403 禁止访问(forbidden)；
+  
+- 404 没找到页面(not found)；
   - 500 内部服务器出错(internal service error)；
   - 200 一切正常(ok)；
   - 304 没有被修改(not modified)(服务器返回304状态，表示源文件没有被修改 )；
-
+  
 - 在 XMLHttpRequest 对象中，服务器发送的状态码都保存在 status 属性里。通过把这个值和 200 或 304 比较，可以确保服务器是否已发送了一个成功的响应；
 
 ##### 4.responseText属性：

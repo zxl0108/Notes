@@ -32,7 +32,7 @@ $(document).ready(function(){
 #### 与Dom对象相互转换
 
 - DOM 对象转换为 jQuery 对象： $(DOM对象)；
-- jQuery 对象转换为 DOM 对象）；$('div') [index]       index 是索引号 ；
+- jQuery 对象转换为 DOM 对象：$('div') [index]       index 是索引号 ；
 
 ## jQuery事件
 
