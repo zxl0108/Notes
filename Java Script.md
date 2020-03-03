@@ -1711,35 +1711,41 @@ console.log(newObj);
 
 ### 深拷贝
 
+- 深拷贝的实现方式
+
 ```js
-ar obj = {
-	name : '1张三丰',
-	age : 22,
-	messige : {
-		sex : '男',
-		score : 16
-		},
-	color : ['red','purple','qing']
-}	
-var newObj = {};
-function kaobei (newObj,obj) {
-	for (key in obj) {
-		if (obj[key] instanceof Array) {
-			newObj[key] = [];
-			kaobei(newObj[key],obj[key]);
-			} 
-        else if (obj[key] instanceof Object) {
-			newObj[key] = {};
-			kaobei(newObj[key],obj[key])
-		} 
-        else {
-			ewObj[key] = obj[key];
-		}
-	}
+1、JSON.stringify 和 JSON.parse
+用 JSON.stringify 把对象转换成字符串，再用 JSON.parse 把字符串转换成新的对象。
+可以转成 JSON 格式的对象才能使用这种方法，如果对象中包含 function 或 RegExp 这些就不能用这种方法了。
+let newObj = JSON.parse(JSON.stringify(obj));
+2、jquery 和 zepto
+jquery 和 zepto 里的 $.extend 方法可以用作深拷贝。
+var $ = require('jquery');
+var newObj = $.extend(true, {}, obj);
+3、lodash
+用 lodash 函数库提供的 _.cloneDeep 方法实现深拷贝。
+var _ = require('lodash');
+var newObj = _.cloneDeep(obj);
+4. 自己封装
+deepClone = (obj) => {
+    let objClone = Array.isArray(obj)?[]:{};
+    if(obj && typeof obj==="object"){
+      // for...in 会把继承的属性一起遍历
+      for(let key in obj){
+        // 判断是不是自有属性，而不是继承属性
+        if(obj.hasOwnProperty(key)){
+          //判断ojb子元素是否为对象或数组，如果是，递归复制
+          if(obj[key]&&typeof obj[key] ==="object"){
+            objClone[key] = this.deepClone(obj[key]);
+          }else{
+            //如果不是，简单复制
+            objClone[key] = obj[key];
+          }
+        }
+      }
+    }
+    return objClone;
 }
-	obj.messige.sex = 99;
-	kaobei(newObj,obj);
-	console.log(newObj);
 ```
 
 ## 正则表达式
