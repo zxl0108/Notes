@@ -1444,16 +1444,17 @@ export default router
 
 ```js
 //子组件
-<child>
-    <span slot='after'>我是after的</span>
-    <span slot='before'>我是before的</span>
-</child>
-//父组件
 <div>
     <slot name='before'></slot>>
     <p>静态内容</p>
     <slot name='after'></slot>
 </div>
+//父组件
+<child>
+    <span slot='after'>我是after的</span>
+    <span slot='before'>我是before的</span>
+</child>
+
 //注意:这里我们故意把顺序颠倒了，但是效果没有任何影响。说明具名插槽无关顺序。
 //具名插槽同样支持备用内容,不传入插槽内容则显示插槽内部的内容。
 ```
@@ -1495,26 +1496,3 @@ export default {
 ```
 
 ![1472147-20181112145113196-1793166190](images/1472147-20181112145113196-1793166190.png)
-
-### json-server工具的使用
-
-- 目的：没有后端的支撑下，前端难以为继，json-server可以快速构建一个后台的接口服务，供前端调用；
-- json-server是一个命令行工具可以json文件变成接口文件；
-- json-server遵循`restful`接口规则；
-- 安装：npm i -g  json-server // 也可以采用yarn 和 cnpm；
-
-```js
-新建一个json文件 db.json,并在相对目录下运行命令行命令
-{
-// brands 相等于 我们数据库中的一个表
-"brands": [
-{
-"name": "苹果",
-"date": "2018-05-30T08:07:20.089Z",
-"id": 1
-}
-],
-}
-json-server --watch db.json	//用来访问接口；
-```
-
